@@ -102,9 +102,10 @@ export default function Layout({children}) {
   };
 
   const listData = [
-    {label:'Medicines', to: "/medicines", icon:MedicalServicesIcon},
-    {label:'Patients', to: "/patients", icon:PersonIcon}
+    {label:"Medicines", to: "/medicines", icon: <MedicalServicesIcon/>},
+    {label:"Patients", to: "/patients", icon: <PersonIcon/>}
   ];
+  
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -136,9 +137,9 @@ export default function Layout({children}) {
         <Divider />
         <List>
           {listData.map((text, index) => (
-            <ListItem component={NavLink} to={text.to} key={index} disablePadding sx={{ display: 'block' }}>
+            <ListItem component={NavLink} to={text.to} key={text.label} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
-                sx={{
+                sx={{     
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
                   px: 2.5,
@@ -161,7 +162,7 @@ export default function Layout({children}) {
         <Divider />
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        {children};
+        {children}
       </Box>
     </Box>
   );
