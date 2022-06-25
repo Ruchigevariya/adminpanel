@@ -102,8 +102,8 @@ export default function Layout({children}) {
   };
 
   const listData = [
-    {label:"Medicines", to: "/medicines", icon: <MedicalServicesIcon/>},
-    {label:"Patients", to: "/patients", icon: <PersonIcon/>}
+    {label:"Medicines", to: "medicines", icon: <MedicalServicesIcon/>},
+    {label:"Patients", to: "patients", icon: <PersonIcon/>}
   ];
   
   return (
@@ -162,6 +162,7 @@ export default function Layout({children}) {
         <Divider />
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <DrawerHeader />
         {children}
       </Box>
     </Box>
