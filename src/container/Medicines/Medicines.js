@@ -10,7 +10,6 @@ import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
 import { DataGrid } from '@mui/x-data-grid';
 
-
 function Medicines(props) {
   const [open, setOpen] = React.useState(false);
   const [data, setData] = useState([]);
@@ -25,6 +24,7 @@ function Medicines(props) {
 
   const handleInsert = (values) => {
     console.log(values);
+
     let localData = JSON.parse(localStorage.getItem("medicine"))
 
     let id = Math.floor(Math.random()*10000);
@@ -41,9 +41,11 @@ function Medicines(props) {
       localData.push(data)
       localStorage.setItem("medicine", JSON.stringify(localData))
     }
+
     handleClose()
     formikObj.resetForm()
     loadData()
+
   }
 
   let schema = yup.object().shape({
@@ -80,13 +82,15 @@ function Medicines(props) {
     
     let localData = JSON.parse(localStorage.getItem("medicine"));
     
-    setData(localData);
+    if(localData !== null){
+      setData(localData);
+    }
+
   }
 
   useEffect (() => {
     loadData()
-  }
-  ,[])
+  },[])
 
   return (
     <div>
@@ -102,7 +106,7 @@ function Medicines(props) {
         rowsPerPageOptions={[5]}
         checkboxSelection
       />
-    </div>
+      </div>
       <Dialog open={open} onClose={handleClose} fullWidth>
         <DialogTitle>Add medicine</DialogTitle>
         <Formik values={formikObj}>
@@ -160,8 +164,7 @@ function Medicines(props) {
           </Form>
         </Formik>
       </Dialog>
-      <div style={{ height: 400, width: '100%' }}>
-      </div>
+      
     </div>
   );
 }
