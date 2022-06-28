@@ -8,6 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as yup from 'yup';
 import {  Form, Formik, useFormik } from 'formik';
+import { jsx } from '@emotion/react';
 
 function Medicines(props) {
     const [open, setOpen] = React.useState(false);
@@ -21,6 +22,22 @@ function Medicines(props) {
     };
 
     
+    const handleInsert = (values) => {
+      console.log(values);
+  
+      let localData =JSON.parse(localStorage.getItem("medicine"))
+
+      if (localData === null) {
+        localStorage.setItem("medicine", JSON.stringify([values]))
+      } else {
+        localData.push(values)
+        localStorage.setItem("medicine", JSON.stringify(localData))
+      }
+  
+      handleClose()
+      formikObj.resetForm()
+  
+    }
   let schema = yup.object().shape({
     name: yup.string().required("please enter name"),
     price: yup.number().required("please enter price").positive().integer(),
@@ -37,12 +54,13 @@ function Medicines(props) {
     },
     validationSchema: schema,
     onSubmit: values => {
-      alert(JSON.stringify(values, null, 2));
+      handleInsert(values)
     },
   });
 
   const { handleChange, errors, handleSubmit, handleBlur, touched } = formikObj;
   // console.log(errors);
+
 
     return (
         <div>
@@ -68,7 +86,7 @@ function Medicines(props) {
                   {errors.name && touched.name ? <p>{errors.name}</p> : ''}
                   <TextField
                     margin="dense"
-                    price="price"
+                    name="price"
                     label="Medicine price"
                     type="text"
                     fullWidth
@@ -79,7 +97,7 @@ function Medicines(props) {
                     {errors.price && touched.price ? <p>{errors.price}</p> : ''}
                   <TextField
                     margin="dense"
-                    quantity="quantity"
+                    name="quantity"
                     label="Medicine quantity"
                     type="text"
                     fullWidth
@@ -90,7 +108,7 @@ function Medicines(props) {
                     {errors.quantity && touched.quantity ? <p>{errors.quantity}</p> : ''}
                   <TextField
                     margin="dense"
-                    expiry="expiry"
+                    name="expiry"
                     label="Medicine expiry"
                     type="text"
                     fullWidth
