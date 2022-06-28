@@ -9,7 +9,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
 import { DataGrid } from '@mui/x-data-grid';
-import EditIcon from '@mui/icons-material/Edit';
+import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 function Medicines(props) {
@@ -29,7 +29,7 @@ function Medicines(props) {
 
     let localData = JSON.parse(localStorage.getItem("medicine"))
 
-    let id = Math.floor(Math.random()*10000);
+    let id = Math.floor(Math.random() * 10000);
     console.log(id);
 
     let data = {
@@ -73,27 +73,49 @@ function Medicines(props) {
   const { handleChange, errors, handleSubmit, handleBlur, touched } = formikObj;
   // console.log(errors);
 
+  const handleDelete = (params) => {
+    let localData = JSON.parse(localStorage.getItem("medicine"))
+
+    let fdata = localData.filter((l) => l.id !== params.id)
+
+    // console.log(fdata,params.id);
+
+    localStorage.setItem("medicine",JSON.stringify(fdata))
+
+    loadData()
+
+  }
   const columns = [
     { field: 'name', headerName: 'Name', width: 130 },
     { field: 'price', headerName: 'Price', width: 130 },
     { field: 'quantity', headerName: 'Quantity', width: 130 },
     { field: 'expiry', headerName: 'Expiry', width: 130 },
-    { field: 'action', headerName: 'Action', width: 130 },
+    {
+      field: 'action',
+      headerName: 'Action',
+      width: 130,
+      renderCell: (params) => (
+        <IconButton aria-label="delete" onClick={() => handleDelete(params)}>
+          <DeleteIcon />
+        </IconButton>
+      )
+    },
+
   ];
 
   const loadData = () => {
-    
+
     let localData = JSON.parse(localStorage.getItem("medicine"));
-    
-    if(localData !== null){
+
+    if (localData !== null) {
       setData(localData);
     }
 
   }
 
-  useEffect (() => {
+  useEffect(() => {
     loadData()
-  },[])
+  }, [])
 
   return (
     <div>
@@ -102,13 +124,13 @@ function Medicines(props) {
         Add Medicine
       </Button>
       <div style={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={data}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-      />
+        <DataGrid
+          rows={data}
+          columns={columns}
+          pageSize={5}
+          rowsPerPageOptions={[5]}
+          checkboxSelection
+        />
       </div>
       <Dialog open={open} onClose={handleClose} fullWidth>
         <DialogTitle>Add medicine</DialogTitle>
@@ -167,7 +189,7 @@ function Medicines(props) {
           </Form>
         </Formik>
       </Dialog>
-      
+
     </div>
   );
 }
