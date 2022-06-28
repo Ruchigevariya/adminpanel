@@ -44,6 +44,7 @@ function Patients(props) {
         handleClose();
         formikObj.resetForm();
         loadData()
+        
     }
 
     let schema = yup.object().shape({

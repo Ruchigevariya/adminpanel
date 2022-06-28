@@ -9,6 +9,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
 import { DataGrid } from '@mui/x-data-grid';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function Medicines(props) {
   const [open, setOpen] = React.useState(false);
@@ -76,6 +78,7 @@ function Medicines(props) {
     { field: 'price', headerName: 'Price', width: 130 },
     { field: 'quantity', headerName: 'Quantity', width: 130 },
     { field: 'expiry', headerName: 'Expiry', width: 130 },
+    { field: 'action', headerName: 'Action', width: 130 },
   ];
 
   const loadData = () => {
