@@ -15,6 +15,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 function Medicines(props) {
   const [open, setOpen] = React.useState(false);
   const [data, setData] = useState([]);
+  const [doopen, setDoOpen] = React.useState(false);
+  const [didid, setDidId] = useState(0);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -22,6 +24,12 @@ function Medicines(props) {
 
   const handleClose = () => {
     setOpen(false);
+    setDoOpen(false);
+  };
+
+  //Alerts
+  const handledoClickOpen = () => {
+    setDoOpen(true);
   };
 
   const handleInsert = (values) => {
@@ -73,19 +81,20 @@ function Medicines(props) {
   const { handleChange, errors, handleSubmit, handleBlur, touched } = formikObj;
   // console.log(errors);
 
-  const handleDelete = (params) => {
+  const handleDelete = () => {
     let localData = JSON.parse(localStorage.getItem("medicine"))
 
-    let fdata = localData.filter((l) => l.id !== params.id)
+    let fdata = localData.filter((l) => l.id !== didid)
 
     // console.log(fdata,params.id);
 
-    localStorage.setItem("medicine",JSON.stringify(fdata))
+    localStorage.setItem("medicine", JSON.stringify(fdata))
 
-    loadData()
+    loadData();
 
+    handleClose();
   }
-  
+
   const columns = [
     { field: 'name', headerName: 'Name', width: 130 },
     { field: 'price', headerName: 'Price', width: 130 },
@@ -96,7 +105,7 @@ function Medicines(props) {
       headerName: 'Action',
       width: 130,
       renderCell: (params) => (
-        <IconButton aria-label="delete" onClick={() => handleDelete(params)}>
+        <IconButton aria-label="delete" onClick={() => { handledoClickOpen(); setDidId(params.id) }}>
           <DeleteIcon />
         </IconButton>
       )
@@ -133,6 +142,22 @@ function Medicines(props) {
           checkboxSelection
         />
       </div>
+      <Dialog
+        open={doopen}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Are you sure want to delete?"}
+        </DialogTitle>
+        <DialogActions>
+          <Button onClick={handleClose}>No</Button>
+          <Button onClick={handleDelete} autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Dialog open={open} onClose={handleClose} fullWidth>
         <DialogTitle>Add medicine</DialogTitle>
         <Formik values={formikObj}>
