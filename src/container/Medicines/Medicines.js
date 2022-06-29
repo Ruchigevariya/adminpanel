@@ -11,6 +11,7 @@ import { Form, Formik, useFormik } from 'formik';
 import { DataGrid } from '@mui/x-data-grid';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 
 function Medicines(props) {
   const [open, setOpen] = React.useState(false);
@@ -78,7 +79,7 @@ function Medicines(props) {
     },
   });
 
-  const { handleChange, errors, handleSubmit, handleBlur, touched } = formikObj;
+  const { handleChange, errors, handleSubmit, handleBlur, touched, values } = formikObj;
   // console.log(errors);
 
   const handleDelete = () => {
@@ -95,6 +96,13 @@ function Medicines(props) {
     handleClose();
   }
 
+  const handleEdit = (params) =>{
+    handleClickOpen();
+
+    formikObj.setValues(params.row)
+
+  }
+
   const columns = [
     { field: 'name', headerName: 'Name', width: 130 },
     { field: 'price', headerName: 'Price', width: 130 },
@@ -105,9 +113,14 @@ function Medicines(props) {
       headerName: 'Action',
       width: 130,
       renderCell: (params) => (
-        <IconButton aria-label="delete" onClick={() => { handledoClickOpen(); setDidId(params.id) }}>
-          <DeleteIcon />
-        </IconButton>
+        <>
+          <IconButton aria-label="edit" onClick={() => handleEdit(params)}>
+            <ModeEditOutlineIcon />
+          </IconButton>
+          <IconButton aria-label="delete" onClick={() => { handledoClickOpen(); setDidId(params.id) }}>
+            <DeleteIcon />
+          </IconButton>
+        </>
       )
     },
 
@@ -164,6 +177,7 @@ function Medicines(props) {
           <Form onSubmit={handleSubmit}>
             <DialogContent>
               <TextField
+                value={values.name}
                 margin="dense"
                 name="name"
                 label="Medicine name"
@@ -175,6 +189,7 @@ function Medicines(props) {
               />
               {errors.name && touched.name ? <p>{errors.name}</p> : ''}
               <TextField
+               value={values.price}
                 margin="dense"
                 name="price"
                 label="Medicine price"
@@ -186,6 +201,7 @@ function Medicines(props) {
               />
               {errors.price && touched.price ? <p>{errors.price}</p> : ''}
               <TextField
+               value={values.quantity}
                 margin="dense"
                 name="quantity"
                 label="Medicine quantity"
@@ -197,6 +213,7 @@ function Medicines(props) {
               />
               {errors.quantity && touched.quantity ? <p>{errors.quantity}</p> : ''}
               <TextField
+               value={values.expiry}
                 margin="dense"
                 name="expiry"
                 label="Medicine expiry"
