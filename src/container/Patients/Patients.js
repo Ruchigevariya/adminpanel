@@ -83,6 +83,7 @@ function Patients(props) {
 
         loadData();
     }
+
     const columns = [
         { field: 'name', headerName: 'name', width: 130 },
         { field: 'age', headerName: 'age', width: 130 },
@@ -90,7 +91,7 @@ function Patients(props) {
         { field: 'contact', headerName: 'contact', width: 170 },
         { field: 'city', headerName: 'city', width: 130 },
         {
-            field: 'action',
+            field: 'Action',
             headerName: 'action',
             width: 170,
             renderCell: (params) => (
