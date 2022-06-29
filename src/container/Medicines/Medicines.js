@@ -85,6 +85,7 @@ function Medicines(props) {
     loadData()
 
   }
+  
   const columns = [
     { field: 'name', headerName: 'Name', width: 130 },
     { field: 'price', headerName: 'Price', width: 130 },
