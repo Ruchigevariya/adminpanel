@@ -9,6 +9,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
 import { DataGrid } from '@mui/x-data-grid';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function Patients(props) {
     const [open, setOpen] = React.useState(false);
@@ -26,7 +28,7 @@ function Patients(props) {
         console.log(values);
         let localData = JSON.parse(localStorage.getItem("patient"))
 
-        let id = Math.floor(Math.random()*1000);
+        let id = Math.floor(Math.random() * 1000);
         console.log(id);
 
         let data = {
@@ -44,7 +46,7 @@ function Patients(props) {
         handleClose();
         formikObj.resetForm();
         loadData()
-        
+
     }
 
     let schema = yup.object().shape({
@@ -71,19 +73,39 @@ function Patients(props) {
 
     const { handleChange, errors, handleSubmit, touched, handleBlur } = formikObj;
 
+    const handleDelete = (params) => {
+        let localData=JSON.parse(localStorage.getItem("patient"))
+        console.log(params.id);
+        let fdata = localData.filter((l) => l.id !== params.id)
+        console.log(fdata);
+
+        localStorage.setItem("patient",JSON.stringify(fdata))
+
+        loadData();
+    }
     const columns = [
         { field: 'name', headerName: 'name', width: 130 },
         { field: 'age', headerName: 'age', width: 130 },
         { field: 'birthDate', headerName: 'birthDate', width: 170 },
         { field: 'contact', headerName: 'contact', width: 170 },
         { field: 'city', headerName: 'city', width: 130 },
+        {
+            field: 'action',
+            headerName: 'action',
+            width: 170,
+            renderCell: (params) => (
+                <IconButton aria-label="delete" onClick={() => handleDelete(params)}>
+                    <DeleteIcon />
+                </IconButton>
+            )
+        },
     ];
 
     const loadData = () => {
 
         let localData = JSON.parse(localStorage.getItem("patient"))
 
-        if(localData !== null){
+        if (localData !== null) {
             setData(localData);
         }
 
@@ -91,7 +113,7 @@ function Patients(props) {
 
     useEffect(() => {
         loadData()
-    },[])
+    }, [])
 
     return (
         <div>
