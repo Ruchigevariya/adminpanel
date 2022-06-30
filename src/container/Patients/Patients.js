@@ -11,6 +11,7 @@ import { Form, Formik, useFormik } from 'formik';
 import { DataGrid } from '@mui/x-data-grid';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 
 function Patients(props) {
     const [open, setOpen] = React.useState(false);
@@ -79,7 +80,7 @@ function Patients(props) {
         },
     });
 
-    const { handleChange, errors, handleSubmit, touched, handleBlur } = formikObj;
+    const { handleChange, errors, handleSubmit, touched, handleBlur, values } = formikObj;
 
     const handleDelete = () => {
         let localData = JSON.parse(localStorage.getItem("patient"))
@@ -95,6 +96,12 @@ function Patients(props) {
 
     }
 
+    const handleEdit = (params) => {
+        handleClickOpen();
+
+        formikObj.setValues(params.row)
+    }  
+
     const columns = [
         { field: 'name', headerName: 'name', width: 130 },
         { field: 'age', headerName: 'age', width: 130 },
@@ -106,9 +113,14 @@ function Patients(props) {
             headerName: 'action',
             width: 170,
             renderCell: (params) => (
+                <>
+                <IconButton aria-label="edit" onClick={() => handleEdit(params)}>
+                    <ModeEditOutlineIcon />
+                </IconButton>
                 <IconButton aria-label="delete" onClick={() => { handledoClickOpen(); setDidId(params.id) }}>
                     <DeleteIcon />
                 </IconButton>
+                </>
             )
         },
     ];
@@ -164,6 +176,7 @@ function Patients(props) {
                     <Form onSubmit={handleSubmit}>
                         <DialogContent>
                             <TextField
+                                value={values.name}
                                 margin="dense"
                                 name="name"
                                 label="patients name"
@@ -175,6 +188,7 @@ function Patients(props) {
                             />
                             {errors.name && touched.name ? <p>{errors.name}</p> : ''}
                             <TextField
+                                value={values.age}
                                 margin="dense"
                                 name="age"
                                 label="patients age"
@@ -186,6 +200,7 @@ function Patients(props) {
                             />
                             {errors.age && touched.age ? <p>{errors.age}</p> : ''}
                             <TextField
+                                value={values.birthDate}
                                 margin="dense"
                                 name="birthDate"
                                 label="patients birthDate"
@@ -197,6 +212,7 @@ function Patients(props) {
                             />
                             {errors.birthDate && touched.birthDate ? <p>{errors.birthDate}</p> : ''}
                             <TextField
+                                value={values.contact}
                                 margin="dense"
                                 name="contact"
                                 label="patients contact"
@@ -208,6 +224,7 @@ function Patients(props) {
                             />
                             {errors.contact && touched.contact ? <p>{errors.contact}</p> : ''}
                             <TextField
+                                value={values.city}
                                 margin="dense"
                                 name="city"
                                 label="patients city"
