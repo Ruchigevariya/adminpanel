@@ -18,6 +18,7 @@ function Medicines(props) {
   const [data, setData] = useState([]);
   const [doopen, setDoOpen] = React.useState(false);
   const [didid, setDidId] = useState(0);
+  const [update, setUpdate] =  useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -26,6 +27,8 @@ function Medicines(props) {
   const handleClose = () => {
     setOpen(false);
     setDoOpen(false);
+    setUpdate(false);
+    formikObj.resetForm()
   };
 
   //Alerts
@@ -59,6 +62,28 @@ function Medicines(props) {
 
   }
 
+  const handleUpdateData = (values) => {
+    let localData = JSON.parse(localStorage.getItem("medicine"))
+
+    let udata = localData.map((l) => {
+      if(l.id === values.id){
+        return values;
+      }else{
+        return l;
+      }
+    })
+
+    localStorage.setItem("medicine",JSON.stringify(udata))
+
+    console.log(values);
+
+    handleClose();
+
+    loadData();
+
+  }
+
+
   let schema = yup.object().shape({
     name: yup.string().required("please enter name"),
     price: yup.number().required("please enter price").positive().integer(),
@@ -75,7 +100,11 @@ function Medicines(props) {
     },
     validationSchema: schema,
     onSubmit: values => {
-      handleInsert(values);
+      if(update){
+        handleUpdateData(values);
+      }else{
+        handleInsert(values);
+      }
     },
   });
 
@@ -100,6 +129,8 @@ function Medicines(props) {
     handleClickOpen();
 
     formikObj.setValues(params.row)
+
+    setUpdate(true);
 
   }
 
@@ -172,7 +203,12 @@ function Medicines(props) {
         </DialogActions>
       </Dialog>
       <Dialog open={open} onClose={handleClose} fullWidth>
-        <DialogTitle>Add medicine</DialogTitle>
+      {
+        update ?
+          <DialogTitle>Update medicine</DialogTitle>
+        :
+          <DialogTitle>Add medicine</DialogTitle>
+      }
         <Formik values={formikObj}>
           <Form onSubmit={handleSubmit}>
             <DialogContent>
@@ -226,7 +262,12 @@ function Medicines(props) {
               {errors.expiry && touched.expiry ? <p>{errors.expiry}</p> : ''}
               <DialogActions>
                 <Button onClick={handleClose}>Cancel</Button>
-                <Button type="submit">Submit</Button>
+                {
+                  update ?
+                  <Button type="submit">Update</Button>
+                  :
+                  <Button type="submit">Submit</Button>
+                }
               </DialogActions>
             </DialogContent>
           </Form>
