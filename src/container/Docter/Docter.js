@@ -62,11 +62,11 @@ function Doctors(props) {
     const handleUpdateData = (values) => {
         let localData = JSON.parse(localStorage.getItem("doctor"))
 
-        let uData = localData.map((u) => {
-            if (u.id === values.id) {
+        let uData = localData.map((l) => {
+            if (l.id === values.id) {
                 return values;
             } else {
-                return u;
+                return l;
             }
         })
 
@@ -168,7 +168,6 @@ function Doctors(props) {
             <Button variant="outlined" onClick={handleClickOpen}>
                 Add Details
             </Button>
-            <h3>Doctor Details</h3>
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
                     rows={data}

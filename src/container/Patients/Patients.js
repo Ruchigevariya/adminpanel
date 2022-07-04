@@ -207,7 +207,6 @@ function Patients(props) {
                         :
                         <DialogTitle>Add Patients Details</DialogTitle>
                 }
-                <DialogTitle>Patients Data</DialogTitle>
                 <Formik values={formikObj}>
                     <Form onSubmit={handleSubmit}>
                         <DialogContent>
