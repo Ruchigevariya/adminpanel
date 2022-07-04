@@ -64,17 +64,17 @@ function Patients(props) {
     const handleUpdateData = (values) => {
         // console.log(values);
 
-        let localData =  JSON.parse(localStorage.getItem("patient"));
+        let localData = JSON.parse(localStorage.getItem("patient"));
 
         let uData = localData.map((l) => {
-            if(l.id === values.id){
+            if (l.id === values.id) {
                 return values;
-            }else{
+            } else {
                 return l;
             }
         })
 
-        localStorage.setItem("patient",JSON.stringify(uData))
+        localStorage.setItem("patient", JSON.stringify(uData))
 
         loadData();
 
@@ -100,9 +100,9 @@ function Patients(props) {
         },
         validationSchema: schema,
         onSubmit: values => {
-            if(update){
+            if (update) {
                 handleUpdateData(values);
-            }else{
+            } else {
                 handleInsert(values)
             }
         },
@@ -130,7 +130,7 @@ function Patients(props) {
         formikObj.setValues(params.row)
 
         setUpdate(true);
-    }  
+    }
 
     const columns = [
         { field: 'name', headerName: 'name', width: 130 },
@@ -144,12 +144,12 @@ function Patients(props) {
             width: 170,
             renderCell: (params) => (
                 <>
-                <IconButton aria-label="edit" onClick={() => handleEdit(params)}>
-                    <ModeEditOutlineIcon />
-                </IconButton>
-                <IconButton aria-label="delete" onClick={() => { handledoClickOpen(); setDidId(params.id) }}>
-                    <DeleteIcon />
-                </IconButton>
+                    <IconButton aria-label="edit" onClick={() => handleEdit(params)}>
+                        <ModeEditOutlineIcon />
+                    </IconButton>
+                    <IconButton aria-label="delete" onClick={() => { handledoClickOpen(); setDidId(params.id) }}>
+                        <DeleteIcon />
+                    </IconButton>
                 </>
             )
         },
@@ -191,7 +191,7 @@ function Patients(props) {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
-                    {"Are you sure want to?"}
+                    {"Are you sure want to delete this data.?"}
                 </DialogTitle>
                 <DialogActions>
                     <Button onClick={handleClose}>No</Button>
@@ -201,6 +201,12 @@ function Patients(props) {
                 </DialogActions>
             </Dialog>
             <Dialog open={open} onClose={handleClose} fullWidth>
+                {
+                    update ?
+                        <DialogTitle>Update Patients Data</DialogTitle>
+                        :
+                        <DialogTitle>Add Patients Details</DialogTitle>
+                }
                 <DialogTitle>Patients Data</DialogTitle>
                 <Formik values={formikObj}>
                     <Form onSubmit={handleSubmit}>
@@ -269,9 +275,9 @@ function Patients(props) {
                                 <Button onClick={handleClose}>Cancel</Button>
                                 {
                                     update ?
-                                    <Button type='submit'>Update</Button> 
-                                    :
-                                    <Button type='submit'>Submit</Button>
+                                        <Button type='submit'>Update</Button>
+                                        :
+                                        <Button type='submit'>Submit</Button>
                                 }
                             </DialogActions>
                         </DialogContent>

@@ -1,18 +1,23 @@
-import React, {  useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
 import { DataGrid } from '@mui/x-data-grid';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
-function Docter(props) {
-    const [open, setOpen] = React.useState(false);
-    const [data, setData] = useState([]);
+function Doctors(props) {
+    const [open, setOpen] = useState(false);
+    const [data, setData] = useState([])
+    const [dopen, setDopen] = useState(false);
+    const [didid, setDidid] = useState(0);
+    const [update, setUpdate] = useState(false)
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -20,32 +25,55 @@ function Docter(props) {
 
     const handleClose = () => {
         setOpen(false);
+        setDopen(false);
+        setUpdate(false);
+        formikObj.resetForm()
+    };
+
+    const handleDoClickDopen = () => {
+        setDopen(true);
     };
 
     const handleInsert = (values) => {
         console.log(values);
-    
-        let localData = JSON.parse(localStorage.getItem("docter"))
-    
-        let id = Math.floor(Math.random() * 1000);
+
+        let localData = JSON.parse(localStorage.getItem("doctor"))
+
+        let id = Math.floor(Math.random() * 10000);
         console.log(id);
-    
+
         let data = {
-          id: id,
-          ...values
+            id: id,
+            ...values
         }
-    
+
         if (localData === null) {
-          localStorage.setItem("docter", JSON.stringify([data]))
+            localStorage.setItem("doctor", JSON.stringify([data]))
         } else {
-          localData.push(data)
-          localStorage.setItem("docter", JSON.stringify(localData))
+            localData.push(data)
+            localStorage.setItem("doctor", JSON.stringify(localData))
         }
-    
+
         handleClose()
-        formikObj.resetForm()
         loadData()
-    
+    }
+
+    const handleUpdateData = (values) => {
+        let localData = JSON.parse(localStorage.getItem("doctor"))
+
+        let uData = localData.map((u) => {
+            if (u.id === values.id) {
+                return values;
+            } else {
+                return u;
+            }
+        })
+
+        // console.log(values);
+        
+        localStorage.setItem("doctor", JSON.stringify(uData))
+        handleClose()
+        loadData()
     }
 
     let schema = yup.object().shape({
@@ -64,40 +92,81 @@ function Docter(props) {
         },
         validationSchema: schema,
         onSubmit: values => {
-            handleInsert(values)
+            if (update) {
+                handleUpdateData(values)
+            } else {
+                handleInsert(values);
+            }
         },
     });
 
-    const { handleChange, handleSubmit, errors, handleBlur, touched } = formikObj;
+    const { handleChange, handleSubmit, errors, handleBlur, touched, values } = formikObj;
+
+    const handleDelete = () => {
+        let localData = JSON.parse(localStorage.getItem("doctor"))
+
+        let fData = localData.filter((l) => l.id !== didid)
+
+        // console.log(fdata,params.id);
+        
+        localStorage.setItem("doctor", JSON.stringify(fData))
+
+        loadData()
+        handleClose()
+    }
+
+    const handleEdit = (params) => {
+        handleClickOpen()
+
+        formikObj.setValues(params.row)
+
+        // console.log(params.row);
+        setUpdate(true)
+    }
 
     const columns = [
         { field: 'firstname', headerName: 'First name', width: 130 },
         { field: 'lastname', headerName: 'Last name', width: 130 },
         { field: 'email', headerName: 'Email id', width: 130 },
         { field: 'contact', headerName: 'Contact', width: 130 },
+        {
+            field: 'action',
+            headerName: 'Action',
+            width: 180,
+            renderCell: (params) => (
+                <>
+                    <IconButton aria-label="edit" onClick={() => handleEdit(params)}>
+                        <EditIcon />
+                    </IconButton>
+                    <IconButton aria-label="delete" onClick={() => { handleDoClickDopen(); setDidid(params.id) }}>
+                        <DeleteIcon />
+                    </IconButton>
+                </>
+
+            )
+        },
     ];
 
-    //data ne get karvvva
     const loadData = () => {
-    
-        let localData = JSON.parse(localStorage.getItem("docter"));
-        
-        if(localData !== null){
-          setData(localData); // state ni ander set karvya
+        let localData = JSON.parse(localStorage.getItem("doctor"));
+
+        if (localData !== null) {
+            setData(localData);
         }
-    
+
     }
-    
-    useEffect (() => {
-        loadData() //data ne get karvya
-    },[])
+
+    useEffect(() => {
+        loadData()
+    }, [])
 
     return (
         <div>
-            <h2>docter</h2>
+            <h2>Doctor</h2>
             <Button variant="outlined" onClick={handleClickOpen}>
-                Add Docter
+                Add Details
             </Button>
+            <h3>Doctor Details</h3>
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
                     rows={data}
@@ -107,15 +176,39 @@ function Docter(props) {
                     checkboxSelection
                 />
             </div>
+            <Dialog
+                open={dopen}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Are you sure want to delete?"}
+                </DialogTitle>
+                <DialogContent>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>No</Button>
+                    <Button onClick={handleDelete} autoFocus>
+                        Yes
+                    </Button>
+                </DialogActions>
+            </Dialog>
             <Dialog open={open} onClose={handleClose} fullWidth>
-                <DialogTitle>Docter Data</DialogTitle>
+                {
+                    update ? 
+                    <DialogTitle>Update Doctors Data</DialogTitle>
+                    : 
+                    <DialogTitle>Doctors Details</DialogTitle>
+                }
                 <Formik values={formikObj}>
                     <Form onSubmit={handleSubmit}>
                         <DialogContent>
                             <TextField
+                                value={values.firstname}
                                 margin="dense"
                                 name="firstname"
-                                label="Docter firstname"
+                                label="Doctor first Name"
                                 type="text"
                                 fullWidth
                                 variant="standard"
@@ -124,9 +217,10 @@ function Docter(props) {
                             />
                             {errors.firstname && touched.firstname ? <p>{errors.firstname}</p> : ''}
                             <TextField
+                                value={values.lastname}
                                 margin="dense"
                                 name="lastname"
-                                label="Docter lastname"
+                                label="Doctor last Name"
                                 type="text"
                                 fullWidth
                                 variant="standard"
@@ -135,9 +229,10 @@ function Docter(props) {
                             />
                             {errors.lastname && touched.lastname ? <p>{errors.lastname}</p> : ''}
                             <TextField
+                                value={values.email}
                                 margin="dense"
                                 name="email"
-                                label="Docter email id"
+                                label="Doctor email id"
                                 type="text"
                                 fullWidth
                                 variant="standard"
@@ -146,9 +241,10 @@ function Docter(props) {
                             />
                             {errors.email && touched.email ? <p>{errors.email}</p> : ''}
                             <TextField
+                                value={values.specicontact}
                                 margin="dense"
                                 name="contact"
-                                label="docter contact"
+                                label="Doctor contact"
                                 type="text"
                                 fullWidth
                                 variant="standard"
@@ -158,7 +254,12 @@ function Docter(props) {
                             {errors.contact && touched.contact ? <p>{errors.contact}</p> : ''}
                             <DialogActions>
                                 <Button onClick={handleClose}>Cancel</Button>
-                                <Button type="submit">Submit</Button>
+                                {
+                                    update ? 
+                                    <Button type='submit'>Update</Button>
+                                    : 
+                                    <Button type='submit'>Submit</Button>
+                                }
                             </DialogActions>
                         </DialogContent>
                     </Form>
@@ -168,4 +269,4 @@ function Docter(props) {
     );
 }
 
-export default Docter;
+export default Doctors;
