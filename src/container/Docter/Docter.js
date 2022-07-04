@@ -30,6 +30,7 @@ function Doctors(props) {
         formikObj.resetForm()
     };
 
+    //alerts
     const handleDoClickDopen = () => {
         setDopen(true);
     };
@@ -108,7 +109,7 @@ function Doctors(props) {
         let fData = localData.filter((l) => l.id !== didid)
 
         // console.log(fdata,params.id);
-        
+
         localStorage.setItem("doctor", JSON.stringify(fData))
 
         loadData()
@@ -147,6 +148,7 @@ function Doctors(props) {
         },
     ];
 
+    //data ne get karvvva
     const loadData = () => {
         let localData = JSON.parse(localStorage.getItem("doctor"));
 
