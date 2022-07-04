@@ -14,11 +14,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 
 function Medicines(props) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
-  const [doopen, setDoOpen] = React.useState(false);
+  const [doopen, setDoOpen] = useState(false);
   const [didid, setDidId] = useState(0);
-  const [update, setUpdate] =  useState(false);
+  const [update, setUpdate] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -57,23 +57,21 @@ function Medicines(props) {
     }
 
     handleClose()
-    formikObj.resetForm()
     loadData()
-
   }
 
   const handleUpdateData = (values) => {
     let localData = JSON.parse(localStorage.getItem("medicine"))
 
     let udata = localData.map((l) => {
-      if(l.id === values.id){
+      if (l.id === values.id) {
         return values;
-      }else{
+      } else {
         return l;
       }
     })
 
-    localStorage.setItem("medicine",JSON.stringify(udata))
+    localStorage.setItem("medicine", JSON.stringify(udata))
 
     console.log(values);
 
@@ -100,19 +98,20 @@ function Medicines(props) {
     },
     validationSchema: schema,
     onSubmit: values => {
-      if(update){
+      if (update) {
         handleUpdateData(values);
-      }else{
+      } else {
         handleInsert(values);
       }
     },
+    enableReinitialize: true,
   });
 
   const { handleChange, errors, handleSubmit, handleBlur, touched, values } = formikObj;
   // console.log(errors);
 
   const handleDelete = () => {
-    let localData = JSON.parse(localStorage.getItem("medicine"))
+    let localData = JSON.parse(localStorage.getItem("medicine"));
 
     let fdata = localData.filter((l) => l.id !== didid)
 
@@ -125,7 +124,7 @@ function Medicines(props) {
     handleClose();
   }
 
-  const handleEdit = (params) =>{
+  const handleEdit = (params) => {
     handleClickOpen();
 
     formikObj.setValues(params.row)
@@ -158,18 +157,17 @@ function Medicines(props) {
   ];
 
   const loadData = () => {
-
     let localData = JSON.parse(localStorage.getItem("medicine"));
 
     if (localData !== null) {
-      setData(localData);
+        setData(localData);
     }
 
-  }
+}
 
-  useEffect(() => {
+useEffect(() => {
     loadData()
-  }, [])
+}, [])
 
   return (
     <div>
@@ -203,12 +201,12 @@ function Medicines(props) {
         </DialogActions>
       </Dialog>
       <Dialog open={open} onClose={handleClose} fullWidth>
-      {
-        update ?
-          <DialogTitle>Update medicine</DialogTitle>
-        :
-          <DialogTitle>Add medicine</DialogTitle>
-      }
+        {
+          update ?
+            <DialogTitle>Update medicine</DialogTitle>
+            :
+            <DialogTitle>Add medicine</DialogTitle>
+        }
         <Formik values={formikObj}>
           <Form onSubmit={handleSubmit}>
             <DialogContent>
@@ -225,7 +223,7 @@ function Medicines(props) {
               />
               {errors.name && touched.name ? <p>{errors.name}</p> : ''}
               <TextField
-               value={values.price}
+                value={values.price}
                 margin="dense"
                 name="price"
                 label="Medicine price"
@@ -237,7 +235,7 @@ function Medicines(props) {
               />
               {errors.price && touched.price ? <p>{errors.price}</p> : ''}
               <TextField
-               value={values.quantity}
+                value={values.quantity}
                 margin="dense"
                 name="quantity"
                 label="Medicine quantity"
@@ -249,7 +247,7 @@ function Medicines(props) {
               />
               {errors.quantity && touched.quantity ? <p>{errors.quantity}</p> : ''}
               <TextField
-               value={values.expiry}
+                value={values.expiry}
                 margin="dense"
                 name="expiry"
                 label="Medicine expiry"
@@ -264,9 +262,9 @@ function Medicines(props) {
                 <Button onClick={handleClose}>Cancel</Button>
                 {
                   update ?
-                  <Button type="submit">Update</Button>
-                  :
-                  <Button type="submit">Submit</Button>
+                    <Button type="submit">Update</Button>
+                    :
+                    <Button type="submit">Submit</Button>
                 }
               </DialogActions>
             </DialogContent>

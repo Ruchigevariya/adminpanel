@@ -15,7 +15,7 @@ import EditIcon from '@mui/icons-material/Edit';
 function Doctors(props) {
     const [open, setOpen] = useState(false);
     const [data, setData] = useState([])
-    const [dopen, setDopen] = useState(false);
+    const [doopen, setDopen] = useState(false);
     const [didid, setDidid] = useState(0);
     const [update, setUpdate] = useState(false)
 
@@ -178,7 +178,7 @@ function Doctors(props) {
                 />
             </div>
             <Dialog
-                open={dopen}
+                open={doopen}
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
