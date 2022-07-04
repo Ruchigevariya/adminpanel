@@ -32,7 +32,7 @@ function Docter(props) {
     
         let data = {
           id: id,
-        //   ...values
+          ...values
         }
     
         if (localData === null) {
