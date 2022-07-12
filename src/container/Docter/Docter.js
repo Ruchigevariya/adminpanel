@@ -18,6 +18,7 @@ function Doctors(props) {
     const [doopen, setDopen] = useState(false);
     const [didid, setDidid] = useState(0);
     const [update, setUpdate] = useState(false)
+    const [filterData, setFilterData] = useState([])
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -71,7 +72,7 @@ function Doctors(props) {
         })
 
         // console.log(values);
-        
+
         localStorage.setItem("doctor", JSON.stringify(uData))
         handleClose()
         loadData()
@@ -162,15 +163,43 @@ function Doctors(props) {
         loadData()
     }, [])
 
+    const handlesearch = (val) => {
+        console.log(val);
+
+        let localData = JSON.parse(localStorage.getItem("doctor"))
+
+        let fData = localData.filter((d) => (
+            d.firstname.toLowerCase().includes(val.toLowerCase()) ||
+            d.lastname.toLowerCase().includes(val.toLowerCase()) ||
+            d.email.toLowerCase().includes(val.toLowerCase()) ||
+            d.contact.toString().includes(val)
+        ))
+
+        setFilterData(fData)
+
+        console.log(fData);
+    }
+
+    const finalData = filterData.length > 0 ? filterData : data
+
     return (
         <div>
             <h2>Doctor</h2>
             <Button variant="outlined" onClick={handleClickOpen}>
                 Add Details
             </Button>
+            <TextField
+                margin="dense"
+                name="search"
+                label="Doctor search"
+                type="text"
+                fullWidth
+                variant="standard"
+                onChange={(d) => handlesearch(d.target.value)}
+            />
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
-                    rows={data}
+                    rows={finalData}
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}
@@ -197,10 +226,10 @@ function Doctors(props) {
             </Dialog>
             <Dialog open={open} onClose={handleClose} fullWidth>
                 {
-                    update ? 
-                    <DialogTitle>Update Doctors Data</DialogTitle>
-                    : 
-                    <DialogTitle>Doctors Details</DialogTitle>
+                    update ?
+                        <DialogTitle>Update Doctors Data</DialogTitle>
+                        :
+                        <DialogTitle>Doctors Details</DialogTitle>
                 }
                 <Formik values={formikObj}>
                     <Form onSubmit={handleSubmit}>
@@ -256,10 +285,10 @@ function Doctors(props) {
                             <DialogActions>
                                 <Button onClick={handleClose}>Cancel</Button>
                                 {
-                                    update ? 
-                                    <Button type='submit'>Update</Button>
-                                    : 
-                                    <Button type='submit'>Submit</Button>
+                                    update ?
+                                        <Button type='submit'>Update</Button>
+                                        :
+                                        <Button type='submit'>Submit</Button>
                                 }
                             </DialogActions>
                         </DialogContent>

@@ -19,6 +19,7 @@ function Medicines(props) {
   const [doopen, setDoOpen] = useState(false);
   const [didid, setDidId] = useState(0);
   const [update, setUpdate] = useState(false);
+  const [filterData, setFilterData] = useState([])
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -160,30 +161,60 @@ function Medicines(props) {
     let localData = JSON.parse(localStorage.getItem("medicine"));
 
     if (localData !== null) {
-        setData(localData);
+      setData(localData);
     }
 
-}
+  }
 
-useEffect(() => {
+  useEffect(() => {
     loadData()
-}, [])
+  }, [])
 
+  const handlesearch = (val) => {
+    console.log(val);
+
+    let localData = JSON.parse(localStorage.getItem("medicine"))
+
+    let fData = localData.filter((m) => (
+      m.name.toLowerCase().includes(val.toLowerCase()) ||
+      m.price.toString().includes(val) ||
+      m.quantity.toString().includes(val) ||
+      m.expiry.toString().includes(val) 
+    ))
+
+    setFilterData(fData)
+
+    console.log(fData);
+  }
+
+  const finalData = filterData.length > 0 ? filterData :  data
+  
   return (
     <div>
       <h2>Medicines</h2>
       <Button variant="outlined" onClick={handleClickOpen}>
         Add Medicine
       </Button>
+      {/* data-table */}
+      <TextField
+        margin="dense"
+        name="search"
+        label="Medicine search"
+        type="text"
+        fullWidth
+        variant="standard"
+        onChange={(m) => handlesearch(m.target.value)}
+      />
       <div style={{ height: 400, width: '100%' }}>
         <DataGrid
-          rows={data}
+          rows={finalData}
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[5]}
           checkboxSelection
         />
       </div>
+      {/* //alert popup */}
       <Dialog
         open={doopen}
         onClose={handleClose}

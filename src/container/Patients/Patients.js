@@ -19,6 +19,7 @@ function Patients(props) {
     const [doopen, setDoOpen] = React.useState(false);
     const [didid, setDidId] = useState(0);
     const [update, setUpdate] = useState(false);
+    const [filterData, setFilterData] = useState([]);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -169,15 +170,45 @@ function Patients(props) {
         loadData()
     }, [])
 
+    const handlesearch = (val) => {
+        console.log(val);
+
+        let localData = JSON.parse(localStorage.getItem("patient"))
+
+        let fData = localData.filter((p) => (
+            p.name.toLowerCase().includes(val.toLowerCase()) ||
+            p.age.toString().includes(val) ||
+            p.birthDate.toString().includes(val) ||
+            p.contact.toString().includes(val) || 
+            p.city.toLowerCase().includes(val)
+        ))
+
+        setFilterData(fData)
+
+        console.log(fData);
+
+    }
+
+    const finalData = filterData.length > 0 ? filterData : data
+
     return (
         <div>
             <h2>patients</h2>
             <Button variant="outlined" onClick={handleClickOpen}>
                 Add patients
             </Button>
+            <TextField
+                margin="dense"
+                name="search"
+                label="patients search"
+                type="text"
+                fullWidth
+                variant="standard"
+                onChange={(p) => handlesearch(p.target.value)}
+            />
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
-                    rows={data}
+                    rows={finalData}
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}
