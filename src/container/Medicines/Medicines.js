@@ -38,27 +38,28 @@ function Medicines(props) {
       formikObj.resetForm()
   
     }
-  let schema = yup.object().shape({
-    name: yup.string().required("please enter name"),
-    price: yup.number().required("please enter price").positive().integer(),
-    quantity: yup.string().required("please enter quantity"),
-    expiry: yup.string().required("please enter expiry"),
-  });
 
-  const formikObj = useFormik({
-    initialValues: {
-      name: '',
-      price: '',
-      quantity: '',
-      expiry: ''
-    },
-    validationSchema: schema,
-    onSubmit: values => {
-      handleInsert(values)
-    },
-  });
-
-  const { handleChange, errors, handleSubmit, handleBlur, touched } = formikObj;
+    let schema = yup.object().shape({
+      name: yup.string().required("please enter name"),
+      price: yup.number().required("please enter price").positive().integer(),
+      quantity: yup.string().required("please enter quantity"),
+      expiry: yup.string().required("please enter expiry"),
+    });
+  
+    const formikObj = useFormik({
+      initialValues: {
+        name: '',
+        price: '',
+        quantity: '',
+        expiry: ''
+      },
+      validationSchema: schema,
+      onSubmit: values => {
+        handleInsert(values)
+      },
+    });
+  
+    const { handleChange, errors, handleSubmit, handleBlur, touched } = formikObj;
   // console.log(errors);
 
 
