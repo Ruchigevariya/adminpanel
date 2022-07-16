@@ -1,10 +1,10 @@
 import * as ActionTypes from './ActionTypes';
 
 const initVal = {
-    counter: 0
+    counter: 0   //state bnavyu.
 }
 
-export const configureStore = (state = initVal, action) => {
+export const conuntererducer = (state = initVal, action) => {
     switch (action.type) {
         case ActionTypes.INCREAMENT_COUNTER:
             return {

@@ -1,8 +1,8 @@
 import { createStore } from 'redux'
-import { rootCounter } from './Reducer';
+import { rootreducer } from './Reducer';
 
-export const configure = () => {
-    let store = createStore(rootCounter);
+export const configureStore = () => {
+    let store = createStore(rootreducer);
 
     return store;
 }
