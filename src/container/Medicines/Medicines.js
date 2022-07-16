@@ -25,7 +25,7 @@ function Medicines(props) {
     const handleInsert = (values) => {
       console.log(values);
   
-      let localData =JSON.parse(localStorage.getItem("medicine"))
+      let localData = JSON.parse(localStorage.getItem("medicine"))
 
       if (localData === null) {
         localStorage.setItem("medicine", JSON.stringify([values]))
