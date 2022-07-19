@@ -78,12 +78,13 @@ function Medicines(props) {
     { field: 'expiry', headerName: 'Expiry', width: 130 },
   ];
 
+  //Data ne get karva mate
   const loadData = () => {
     
     let localData = JSON.parse(localStorage.getItem("medicine"));
     
     if(localData !== null){
-      setData(localData);
+      setData(localData); // state ma data set karvya
     }
 
   }
