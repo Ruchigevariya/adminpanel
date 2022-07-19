@@ -4,7 +4,7 @@ const initVal = {
     counter: 0   //state bnavyu.
 }
 
-export const conuntererducer = (state = initVal, action) => {
+export const conunterReducer = (state = initVal, action) => {
     switch (action.type) {
         case ActionTypes.INCREAMENT_COUNTER:
             return {
