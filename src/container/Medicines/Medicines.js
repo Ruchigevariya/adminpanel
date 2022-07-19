@@ -12,6 +12,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
+import { useSelector } from 'react-redux';
 
 function Medicines(props) {
   const [open, setOpen] = useState(false);
@@ -20,6 +21,7 @@ function Medicines(props) {
   const [didid, setDidId] = useState(0);
   const [update, setUpdate] = useState(false);
   const [filterData, setFilterData] = useState([])
+  const c = useSelector((state) => state.counter);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -191,7 +193,7 @@ function Medicines(props) {
   
   return (
     <div>
-      <h2>Medicines</h2>
+      <h2>Medicines {c.counter}</h2>
       <Button variant="outlined" onClick={handleClickOpen}>
         Add Medicine
       </Button>

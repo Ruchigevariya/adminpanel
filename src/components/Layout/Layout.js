@@ -22,6 +22,7 @@ import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
 import PersonIcon from '@mui/icons-material/Person';
 import { NavLink } from 'react-router-dom';
 import VaccinesIcon from '@mui/icons-material/Vaccines';
+import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 
 const drawerWidth = 240;
 
@@ -105,7 +106,8 @@ export default function Layout({children}) {
   const listData = [
     {label:"Medicines", to: "medicines", icon: <MedicalServicesIcon/>},
     {label:"Patients", to: "patients", icon: <PersonIcon/>},
-    {label:"Docter", to: "docter", icon: <VaccinesIcon/>}
+    {label:"Docter", to: "docter", icon: <VaccinesIcon/>},
+    {label:"Counter", to: "counter", icon: <HourglassBottomIcon/>},
   ];
   
   return (
