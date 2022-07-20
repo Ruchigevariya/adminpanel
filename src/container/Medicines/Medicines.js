@@ -21,7 +21,7 @@ function Medicines(props) {
   const [didid, setDidId] = useState(0);
   const [update, setUpdate] = useState(false);
   const [filterData, setFilterData] = useState([])
-  const c = useSelector((state) => state.counter);
+  const c = useSelector(state => state.counter);
 
   const handleClickOpen = () => {
     setOpen(true);
