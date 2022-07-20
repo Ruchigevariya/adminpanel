@@ -4,9 +4,8 @@ import { Switch } from 'react-router-dom';
 import Medicines from './container/Medicines/Medicines';
 import Patients from './container/Patients/Patients';
 import Docter from './container/Docter/Docter';
-import {Provider, useSelector } from 'react-redux';
+import {Provider} from 'react-redux';
 import { configureStore } from './redux/Store';
-import { rootreducer } from './redux/Reducer';
 import Counter from './container/Counter/Counter';
 
 function App() {
