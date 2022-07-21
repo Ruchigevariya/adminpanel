@@ -129,7 +129,8 @@ function Medicines(props) {
     handleClickOpen();
 
     formikObj.setValues(params.row)
-
+    console.log(params.row);
+    
     setUpdate(true);
 
   }
