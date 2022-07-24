@@ -19,7 +19,7 @@ function Medicines(props) {
   const [doopen, setDoOpen] = useState(false);
   const [didid, setDidId] = useState(0);
   const [update, setUpdate] = useState(false);
-  const [filterData, setFilterData] = useState([])
+  const [filterData, setFilterData] = useState([])  // search
 
   const handleClickOpen = () => {
     setOpen(true);
