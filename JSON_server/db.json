@@ -2,28 +2,45 @@
   "medicines": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "name": "ABC",
+      "price": 20,
+      "quantity": 1,
+      "expiry": 2024
+    },
+    {
+      "id": 2,
+      "name": "DEF",
+      "price": 120,
+      "quantity": 1,
+      "expiry": 2022
     },
     {
       "id": 3,
-      "title": "json-server",
-      "author": "typicode"
+      "name": "PQR",
+      "price": 80,
+      "quantity": 1,
+      "expiry": 2022
     },
     {
       "id": 4,
-      "title": "JSON-server",
-      "author": "typicode"
+      "name": "MNP",
+      "price": 135,
+      "quantity": 1,
+      "expiry": 2024
     },
     {
       "id": 5,
-      "title": "json-server",
-      "author": "typicode"
+      "name": "XYZ",
+      "price": 170,
+      "quantity": 1,
+      "expiry": 2025
     },
     {
       "id": 6,
-      "title": "json-server",
-      "author": "typicode"
+      "name": "XYZ",
+      "price": 20,
+      "quantity": 1,
+      "expiry": 2024
     }
   ],
   "comments": [
