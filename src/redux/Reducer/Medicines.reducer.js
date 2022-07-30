@@ -3,19 +3,32 @@ import * as ActionTypes from '../ActionTypes'
 const initVal = {
     isLoading: false,
     Medicines: [],
-    error:''
+    error: ''
 }
 export const medicinesReducer = (state = initVal, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case ActionTypes.GET_MEDICINESDATA:
-            return{
+            return {
                 ...state,
-                isLoading:false,
+                isLoading: false,
                 Medicines: action.payload,
-                error:''
+                error: ''
+            }
+        case ActionTypes.LOADING_MEDICINES:
+            return {
+                ...state,
+                isLoading: true,
+                error: ''
+            }
+        case ActionTypes.ERROR_MEDICINES:
+            return {
+                ...state,
+                isLoading: false,
+                Medicines: [],
+                error: action.payload
             }
 
-            default:
-                return state;
+        default:
+            return state;
     }
 }

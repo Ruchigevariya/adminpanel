@@ -186,7 +186,7 @@ function Medicines(props) {
       m.name.toLowerCase().includes(val.toLowerCase()) ||
       m.price.toString().includes(val) ||
       m.quantity.toString().includes(val) ||
-      m.expiry.toString().includes(val) 
+      m.expiry.toString().includes(val)
     ))
 
     setFilterData(fData)
@@ -194,122 +194,134 @@ function Medicines(props) {
     console.log(fData);
   }
 
-  const finalData = filterData.length > 0 ? filterData :  data
-  
+  const finalData = filterData.length > 0 ? filterData : data
+
   return (
     <div>
-      <h2>Medicines {c.counter}</h2>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Add Medicine
-      </Button>
-      {/* data-table */}
-      <TextField
-        margin="dense"
-        name="search"
-        label="Medicine search"
-        type="text"
-        fullWidth
-        variant="standard"
-        onChange={(m) => handlesearch(m.target.value)}
-      />
-      <div style={{ height: 400, width: '100%' }}>
-        <DataGrid
-          rows={Medicines.Medicines}
-          columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[5]}
-          checkboxSelection
+    {
+      Medicines.isLoading ?
+      <p>Loading....</p> 
+      :
+      Medicines.error !== '' ?
+      <p>{Medicines.error}</p>
+      :
+      <div>
+        <h2>Medicines {c.counter}</h2>
+        <Button variant="outlined" onClick={handleClickOpen}>
+          Add Medicine
+        </Button>
+        {/* data-table */}
+        <TextField
+          margin="dense"
+          name="search"
+          label="Medicine search"
+          type="text"
+          fullWidth
+          variant="standard"
+          onChange={(m) => handlesearch(m.target.value)}
         />
-      </div>
-      {/* //alert popup */}
-      <Dialog
-        open={doopen}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {"Are you sure want to delete?"}
-        </DialogTitle>
-        <DialogActions>
-          <Button onClick={handleClose}>No</Button>
-          <Button onClick={handleDelete} autoFocus>
-            Yes
-          </Button>
-        </DialogActions>
-      </Dialog>
-      <Dialog open={open} onClose={handleClose} fullWidth>
-        {
-          update ?
-            <DialogTitle>Update medicine</DialogTitle>
-            :
-            <DialogTitle>Add medicine</DialogTitle>
-        }
-        <Formik values={formikObj}>
-          <Form onSubmit={handleSubmit}>
-            <DialogContent>
-              <TextField
-                value={values.name}
-                margin="dense"
-                name="name"
-                label="Medicine name"
-                type="text"
-                fullWidth
-                variant="standard"
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-              {errors.name && touched.name ? <p>{errors.name}</p> : ''}
-              <TextField
-                value={values.price}
-                margin="dense"
-                name="price"
-                label="Medicine price"
-                type="text"
-                fullWidth
-                variant="standard"
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-              {errors.price && touched.price ? <p>{errors.price}</p> : ''}
-              <TextField
-                value={values.quantity}
-                margin="dense"
-                name="quantity"
-                label="Medicine quantity"
-                type="text"
-                fullWidth
-                variant="standard"
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-              {errors.quantity && touched.quantity ? <p>{errors.quantity}</p> : ''}
-              <TextField
-                value={values.expiry}
-                margin="dense"
-                name="expiry"
-                label="Medicine expiry"
-                type="text"
-                fullWidth
-                variant="standard"
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-              {errors.expiry && touched.expiry ? <p>{errors.expiry}</p> : ''}
-              <DialogActions>
-                <Button onClick={handleClose}>Cancel</Button>
-                {
-                  update ?
-                    <Button type="submit">Update</Button>
-                    :
-                    <Button type="submit">Submit</Button>
-                }
-              </DialogActions>
-            </DialogContent>
-          </Form>
-        </Formik>
-      </Dialog>
+        <div style={{ height: 400, width: '100%' }}>
+          <DataGrid
+            rows={Medicines.Medicines}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+            checkboxSelection
+          />
+        </div>
+        {/* //alert popup */}
+        <Dialog
+          open={doopen}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"Are you sure want to delete?"}
+          </DialogTitle>
+          <DialogActions>
+            <Button onClick={handleClose}>No</Button>
+            <Button onClick={handleDelete} autoFocus>
+              Yes
+            </Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog open={open} onClose={handleClose} fullWidth>
+          {
+            update ?
+              <DialogTitle>Update medicine</DialogTitle>
+              :
+              <DialogTitle>Add medicine</DialogTitle>
+          }
+          <Formik values={formikObj}>
+            <Form onSubmit={handleSubmit}>
+              <DialogContent>
+                <TextField
+                  value={values.name}
+                  margin="dense"
+                  name="name"
+                  label="Medicine name"
+                  type="text"
+                  fullWidth
+                  variant="standard"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                {errors.name && touched.name ? <p>{errors.name}</p> : ''}
+                <TextField
+                  value={values.price}
+                  margin="dense"
+                  name="price"
+                  label="Medicine price"
+                  type="text"
+                  fullWidth
+                  variant="standard"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                {errors.price && touched.price ? <p>{errors.price}</p> : ''}
+                <TextField
+                  value={values.quantity}
+                  margin="dense"
+                  name="quantity"
+                  label="Medicine quantity"
+                  type="text"
+                  fullWidth
+                  variant="standard"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                {errors.quantity && touched.quantity ? <p>{errors.quantity}</p> : ''}
+                <TextField
+                  value={values.expiry}
+                  margin="dense"
+                  name="expiry"
+                  label="Medicine expiry"
+                  type="text"
+                  fullWidth
+                  variant="standard"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                {errors.expiry && touched.expiry ? <p>{errors.expiry}</p> : ''}
+                <DialogActions>
+                  <Button onClick={handleClose}>Cancel</Button>
+                  {
+                    update ?
+                      <Button type="submit">Update</Button>
+                      :
+                      <Button type="submit">Submit</Button>
+                  }
+                </DialogActions>
+              </DialogContent>
+            </Form>
+          </Formik>
+        </Dialog>
 
+      </div>
+
+    }
+   
     </div>
   );
 }
