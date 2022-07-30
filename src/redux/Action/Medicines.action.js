@@ -11,7 +11,7 @@ export const getMedicines = () => (dispatch) => {
                     if (response.ok) {
                         return response;
                     } else {
-                        var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                        var error = new Error(' Error ' + response.status + ': ' + response.statusText);
                         error.response = response;
                         throw error;
                     }
