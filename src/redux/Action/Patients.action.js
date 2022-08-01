@@ -4,7 +4,7 @@ import * as ActionTypes from '../ActionTypes'
 export const getPatients = () => (dispatch) => {
     try {
         dispatch(loadingPatients())
-        
+
         setTimeout(function(){
             fetch( baseUrl + '/patients')
             .then(response => {
