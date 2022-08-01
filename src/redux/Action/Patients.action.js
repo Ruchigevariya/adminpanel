@@ -1,11 +1,13 @@
+import { baseUrl } from '../../Shares/BaseUrl'
 import * as ActionTypes from '../ActionTypes'
 
 export const getPatients = () => (dispatch) => {
     try {
         dispatch(loadingPatients())
+        
         setTimeout(function(){
-            fetch('http://localhost:3004/patients')
-            then(response => {
+            fetch( baseUrl + '/patients')
+            .then(response => {
                 if (response.ok) {
                   return response;
                 } else {
@@ -18,9 +20,9 @@ export const getPatients = () => (dispatch) => {
                   var errmess = new Error(error.message);
                   throw errmess;
                 })
-        
-            .then((response) => response.json())
-            .then((data) => dispatch({ type: ActionTypes.GET_PATIENTSDATA, payload: data}));
+              .then(response => response.json())
+              .then((data) => dispatch(({ type: ActionTypes.GET_PATIENTSDATA, payload: data })))
+              .catch(error => dispatch(errorPatients(error.message)));
         },2000)
      
     } catch (error) {
