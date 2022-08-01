@@ -3,7 +3,7 @@ import * as ActionTypes from '../ActionTypes'
 
 export const getDocterdata = () => (dispatch) => {
     try {
-        dispatch(loadingDocters())
+        dispatch(loadingDocter())
 
         setTimeout(function(){
             fetch(baseUrl + 'docter')
@@ -30,7 +30,7 @@ export const getDocterdata = () => (dispatch) => {
     }
 }
 
-export const loadingDocters = () => (dispatch) => {
+export const loadingDocter = () => (dispatch) => {
     dispatch({ type: ActionTypes.LOADING_DOCTER })
 }
 
