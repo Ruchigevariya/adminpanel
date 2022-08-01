@@ -12,7 +12,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPatients } from '../../redux/Action/Patients.action';
 
 function Patients(props) {
     const [open, setOpen] = React.useState(false);
@@ -168,8 +169,12 @@ function Patients(props) {
 
     }
 
+    const dispatch = useDispatch()
+    const Patients = useSelector(state => state.Patients)
+    
     useEffect(() => {
-        loadData()
+        // loadData()
+        dispatch(getPatients())
     }, [])
 
     const handlesearch = (val) => {
@@ -210,7 +215,7 @@ function Patients(props) {
             />
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
-                    rows={finalData}
+                    rows={Patients.Patients}
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}
