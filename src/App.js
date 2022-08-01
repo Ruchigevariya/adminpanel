@@ -22,7 +22,7 @@ function App() {
           <Route path={"/counter"} exact component={Counter}/>
         </Switch>
      </Layout>
-     </Provider>
+    </Provider>
     </>
   );
 }
