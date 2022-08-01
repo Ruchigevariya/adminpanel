@@ -8,17 +8,24 @@ const initVal = {
 
 export const pattientsReducer = (state = initVal, action) => {
     console.log(action.type, action.payload);
-    switch(action.type){
+    switch (action.type) {
         case ActionTypes.GET_PATIENTSDATA:
-            return{
+            return {
                 ...state,
                 isLoading: false,
-                Patients:action.payload,
+                Patients: action.payload,
                 error: ''
             }
-            
-            default:
-                return state;
+        case ActionTypes.LOADING_PATIENTS:
+            return {
+                ...state,
+                isLoading: true,
+                Patients: [],
+                error: ''
+            }
+
+        default:
+            return state;
     }
-    
+
 }
