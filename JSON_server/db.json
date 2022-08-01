@@ -43,6 +43,89 @@
       "expiry": 2024
     }
   ],
+
+  "patients": [
+    {
+      "id": 1,
+      "name": "ABC",
+      "age": 25,
+      "birthDate": 2232000,
+      "contact": 8866457324,
+      "city": "surat"
+    },
+    {
+      "id": 2,
+      "name": "PQR",
+      "age": 25,
+      "birthDate": 2232000,
+      "contact": 5415257854,
+      "city": "pune"
+    },
+    {
+      "id": 3,
+      "name": "MNP",
+      "age": 25,
+      "birthDate": 2232000,
+      "contact": 5544332211,
+      "city": "ahmedabad"
+    },
+    {
+      "id": 4,
+      "name": "XYZ",
+      "age": 25,
+      "birthDate": 2232000,
+      "contact": 9988776655,
+      "city": "mubai"
+    },
+    {
+      "id": 5,
+      "name": "DEF",
+      "age": 25,
+      "birthDate": 2232000,
+      "contact": 2256387459,
+      "city": "vadodara"
+    }
+  ],
+
+  
+  "docter": [
+    {
+      "id": 1,
+      "firstname": "Ruchi",
+      "lastname": "gevariya",
+      "email id": "rrr@gnail,com",
+      "contact": 8866457324
+    },
+    {
+      "id": 2,
+      "firstname": "dhara",
+      "lastname": "mangaroliya",
+      "emailid": "ddd452@gmail.com",
+      "contact": 5415257854
+    },
+    {
+      "id": 3,
+      "firstname": "richa",
+      "lastname": "hapani",
+      "emailid": "hhh@gmail.com",
+      "contact": 5544332211
+    },
+    {
+      "id": 4,
+      "firstname": "anarya",
+      "lastname": "patel",
+      "emailid": "pa34@gmail.com",
+      "contact": 9988776655
+    },
+    {
+      "id": 5,
+      "firstname": "khushi",
+      "lastname": "khakhriya",
+      "emailid": "ko56@gmail.com",
+      "contact": 2256387459
+    }
+  ],
+  
   "comments": [
     {
       "id": 1,
