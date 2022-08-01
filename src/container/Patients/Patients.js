@@ -12,7 +12,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
-import { useSelector} from '../../redux';
+import { useSelector } from 'react-redux';
 
 function Patients(props) {
     const [open, setOpen] = React.useState(false);
