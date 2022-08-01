@@ -6,6 +6,7 @@ const initVal = {
     error:''
 }
 export const medicinesReducer = (state = initVal, action) => {
+    console.log(action.type, action.payload);
     switch(action.type) {
         case ActionTypes.GET_MEDICINESDATA:
             return{
