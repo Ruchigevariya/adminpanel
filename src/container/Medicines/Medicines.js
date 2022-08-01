@@ -13,7 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMedicines } from '../../redux/Action/Medicines.action';
+import { addMedicines, getMedicines } from '../../redux/Action/Medicines.action';
 
 function Medicines(props) {
   const [open, setOpen] = useState(false);
@@ -43,7 +43,7 @@ function Medicines(props) {
   const handleInsert = (values) => {
     console.log(values);
 
-    let localData = JSON.parse(localStorage.getItem("medicine"))
+    // let localData = JSON.parse(localStorage.getItem("medicine"))
 
     let id = Math.floor(Math.random() * 10000);
     console.log(id);
@@ -53,12 +53,14 @@ function Medicines(props) {
       ...values
     }
 
-    if (localData === null) {
-      localStorage.setItem("medicine", JSON.stringify([data]))
-    } else {
-      localData.push(data)
-      localStorage.setItem("medicine", JSON.stringify(localData))
-    }
+    dispatch(addMedicines(data))
+
+    // if (localData === null) {
+    //   localStorage.setItem("medicine", JSON.stringify([data]))
+    // } else {
+    //   localData.push(data)
+    //   localStorage.setItem("medicine", JSON.stringify(localData))
+    // }
 
     handleClose()
     loadData()

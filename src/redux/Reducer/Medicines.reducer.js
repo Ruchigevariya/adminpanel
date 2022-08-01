@@ -14,6 +14,13 @@ export const medicinesReducer = (state = initVal, action) => {
                 Medicines: action.payload,
                 error: ''
             }
+        case ActionTypes.GET_MEDICINESDATA:
+            return {
+                ...state,
+                isLoading: false,
+                Medicines: state.Medicines.concat(action.payload),
+                error: ''
+            }
         case ActionTypes.LOADING_MEDICINES:
             return {
                 ...state,
