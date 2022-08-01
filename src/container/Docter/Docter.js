@@ -11,7 +11,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getDocterdata } from '../../redux/Action/Docter.action';
 
 function Doctors(props) {
     const [open, setOpen] = useState(false);
@@ -161,8 +162,12 @@ function Doctors(props) {
 
     }
 
+    const dispatch = useDispatch()
+    const Docter = useSelector(state => state.Docter)
+
     useEffect(() => {
-        loadData()
+        // loadData()
+        dispatch(getDocterdata())
     }, [])
 
     const handlesearch = (val) => {
@@ -201,7 +206,7 @@ function Doctors(props) {
             />
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
-                    rows={finalData}
+                    rows={Docter.Docter}
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}
