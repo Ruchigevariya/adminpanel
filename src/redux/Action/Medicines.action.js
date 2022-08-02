@@ -26,7 +26,7 @@ export const getMedicines = () => (dispatch) => {
         }, 2000)
 
     } catch (error) {
-        console.log(error);
+        dispatch(errorMedicines(error.message))
     }
 
 }
