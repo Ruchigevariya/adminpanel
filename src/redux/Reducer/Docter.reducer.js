@@ -15,7 +15,7 @@ export const docterReducer = (state = initVal, action) => {
                 Docter: action.payload,
                 error: ''
             }
-        case ActionTypes.GET_DOCTERDATA:
+        case ActionTypes.LOADING_DOCTER:
             return {
                 ...state,
                 isLoading: true,
