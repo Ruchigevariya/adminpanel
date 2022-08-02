@@ -93,6 +93,24 @@ export const deleteMedicines = (id) => (dispatch) => {
         dispatch(errorMedicines(error.message))
     }
 }
+
+export const updateMedicines = (data) => (dispatch) => {
+    console.log(data);
+    try{
+        fetch(baseUrl + 'medicines/' + id ,{
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),  
+        })
+        .then((response) => response.json())
+        .then((data) => {dispatch({ type: ActionTypes.UPDATE_MEDICINESDATA, payload: data })})
+    } catch (error) {
+
+    }
+
+}
 export const loadingMedicines = () => (dispatch) => {
     dispatch({ type: ActionTypes.LOADING_MEDICINES })
 }

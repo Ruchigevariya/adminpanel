@@ -2,7 +2,7 @@
   "medicines": [
     {
       "id": 1,
-      "name": "ABC",
+      "name": "ABCD",
       "price": 20,
       "quantity": 1,
       "expiry": 2024
