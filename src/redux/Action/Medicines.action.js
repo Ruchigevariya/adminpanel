@@ -97,7 +97,7 @@ export const deleteMedicines = (id) => (dispatch) => {
 export const updateMedicines = (data) => (dispatch) => {
     console.log(data);
     try{
-        fetch(baseUrl + 'medicines/' + id ,{
+        fetch(baseUrl + 'medicines/' + data ,{
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
