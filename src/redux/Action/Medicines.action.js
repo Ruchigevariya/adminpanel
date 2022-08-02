@@ -55,7 +55,7 @@ export const addMedicines = (data) => (dispatch) => {
                 })
             .then((response) => response.json())
             .then((data) => {
-                dispatch({ type: ActionTypes.GET_MEDICINESDATA, payload: data })
+                dispatch({ type: ActionTypes.ADD_MEDICINESDATA, payload: data })
             })
             .catch((error) => {
                 dispatch(errorMedicines(error.message))

@@ -41,9 +41,15 @@
       "price": 20,
       "quantity": 1,
       "expiry": 2024
+    },
+    {
+      "id": 6431,
+      "name": "ruchi",
+      "price": "50",
+      "quantity": "2",
+      "expiry": "2023"
     }
   ],
-
   "patients": [
     {
       "id": 1,
@@ -86,8 +92,6 @@
       "city": "vadodara"
     }
   ],
-
-  
   "docter": [
     {
       "id": 1,
@@ -125,7 +129,6 @@
       "contact": 2256387459
     }
   ],
-  
   "comments": [
     {
       "id": 1,

@@ -15,7 +15,7 @@ export const medicinesReducer = (state = initVal, action) => {
                 Medicines: action.payload,
                 error: ''
             }
-        case ActionTypes.GET_MEDICINESDATA:
+        case ActionTypes.ADD_MEDICINESDATA:
             return {
                 ...state,
                 isLoading: false,
