@@ -21,8 +21,8 @@ export const getDocterdata = () => (dispatch) => {
                   throw errmess;
                 })
               .then(response => response.json())
-              .then((data) => dispatch(({ type: ActionTypes.GET_DOCTERDATA, payload: data })))
-              .catch(error => dispatch(errorDocter(error.message)));
+              .then((data) => dispatch({ type: ActionTypes.GET_DOCTERDATA, payload: data }))
+              .catch((error) => dispatch(errorDocter(error.message)));
         }, 2000)
         
     } catch (error) {

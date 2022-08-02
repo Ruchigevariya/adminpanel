@@ -14,7 +14,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPatients } from '../../redux/Action/Patients.action';
-import { docterReducer } from '../../redux/Reducer/Docter.reducer';
 
 function Patients(props) {
     const [open, setOpen] = React.useState(false);

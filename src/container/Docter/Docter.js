@@ -195,9 +195,6 @@ function Doctors(props) {
                 Docter.isLoading ? 
                 <p>Loading...</p>
                 :
-                Docter.error !== '' ?
-                        <p>{Docter.error}</p>
-                        :
                 <div>
                     <h2>Doctor{c.counter}</h2>
                     <Button variant="outlined" onClick={handleClickOpen}>
