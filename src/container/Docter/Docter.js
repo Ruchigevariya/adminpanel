@@ -4,24 +4,23 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
 import { DataGrid } from '@mui/x-data-grid';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
+import EditIcon from '@mui/icons-material/Edit';
 import { useDispatch, useSelector } from 'react-redux';
-import { addpatients, getPatients } from '../../redux/Action/Patients.action';
+import { addDocterData, getDocterdata } from '../../redux/Action/Docter.action';
 
-function Patients(props) {
-    const [open, setOpen] = React.useState(false);
+function Doctors(props) {
+    const [open, setOpen] = useState(false);
     const [data, setData] = useState([])
-    const [doopen, setDoOpen] = React.useState(false);
-    const [didid, setDidId] = useState(0);
-    const [update, setUpdate] = useState(false);
-    const [filterData, setFilterData] = useState([]);
+    const [doopen, setDopen] = useState(false);
+    const [didid, setDidid] = useState(0);
+    const [update, setUpdate] = useState(false)
+    const [filterData, setFilterData] = useState([])
     const c = useSelector(state => state.counter)
 
     const handleClickOpen = () => {
@@ -30,21 +29,22 @@ function Patients(props) {
 
     const handleClose = () => {
         setOpen(false);
-        setDoOpen(false);
+        setDopen(false);
         setUpdate(false);
-        formikObj.resetForm();
+        formikObj.resetForm()
     };
 
-    //Alerts
-    const handledoClickOpen = () => {
-        setDoOpen(true);
+    //alerts
+    const handleDoClickDopen = () => {
+        setDopen(true);
     };
 
     const handleInsert = (values) => {
         console.log(values);
-        let localData = JSON.parse(localStorage.getItem("patient"))
 
-        let id = Math.floor(Math.random() * 1000);
+        let localData = JSON.parse(localStorage.getItem("doctor"))
+
+        let id = Math.floor(Math.random() * 10000);
         console.log(id);
 
         let data = {
@@ -52,25 +52,20 @@ function Patients(props) {
             ...values
         }
 
-        dispatch(addpatients(data))
-
+        dispatch(addDocterData())
         // if (localData === null) {
-        //     localStorage.setItem("patient", JSON.stringify([data]))
+        //     localStorage.setItem("doctor", JSON.stringify([data]))
         // } else {
         //     localData.push(data)
-        //     localStorage.setItem("patient", JSON.stringify(localData))
+        //     localStorage.setItem("doctor", JSON.stringify(localData))
         // }
 
-        handleClose();
-        formikObj.resetForm();
+        handleClose()
         loadData()
-
     }
 
     const handleUpdateData = (values) => {
-        // console.log(values);
-
-        let localData = JSON.parse(localStorage.getItem("patient"));
+        let localData = JSON.parse(localStorage.getItem("doctor"))
 
         let uData = localData.map((l) => {
             if (l.id === values.id) {
@@ -80,90 +75,87 @@ function Patients(props) {
             }
         })
 
-        localStorage.setItem("patient", JSON.stringify(uData))
+        // console.log(values);
 
-        loadData();
-
-        handleClose();
-
+        localStorage.setItem("doctor", JSON.stringify(uData))
+        handleClose()
+        loadData()
     }
 
     let schema = yup.object().shape({
-        name: yup.string().required("please enter name"),
-        age: yup.number().required("please enter age").positive().integer(),
-        birthDate: yup.string().required("please enter birthDate"),
-        contact: yup.string().required("please enter contact"),
-        city: yup.string().required("please enter city"),
+        firstname: yup.string().required("Please enter your firstname."),
+        lastname: yup.string().required("Please enter your lastname."),
+        email: yup.string().required("Please enter email id.").email("please enter valid email id."),
+        contact: yup.string().required("Please enter your contact number."),
     });
 
     const formikObj = useFormik({
         initialValues: {
-            name: '',
-            age: '',
-            birthDate: '',
+            firstname: '',
+            lastname: '',
+            email: '',
             contact: '',
-            city: '',
         },
         validationSchema: schema,
         onSubmit: values => {
             if (update) {
-                handleUpdateData(values);
+                handleUpdateData(values)
             } else {
-                handleInsert(values)
+                handleInsert(values);
             }
         },
     });
 
-    const { handleChange, errors, handleSubmit, touched, handleBlur, values } = formikObj;
+    const { handleChange, handleSubmit, errors, handleBlur, touched, values } = formikObj;
 
     const handleDelete = () => {
-        let localData = JSON.parse(localStorage.getItem("patient"))
-        // console.log(params.id);
-        let fdata = localData.filter((l) => l.id !== didid)
-        // console.log(fdata);
+        let localData = JSON.parse(localStorage.getItem("doctor"))
 
-        localStorage.setItem("patient", JSON.stringify(fdata))
+        let fData = localData.filter((l) => l.id !== didid)
 
-        loadData();
+        // console.log(fdata,params.id);
 
-        handleClose();
+        localStorage.setItem("doctor", JSON.stringify(fData))
 
+        loadData()
+        handleClose()
     }
 
     const handleEdit = (params) => {
-        handleClickOpen();
+        handleClickOpen()
 
         formikObj.setValues(params.row)
 
-        setUpdate(true);
+        // console.log(params.row);
+        setUpdate(true)
     }
 
     const columns = [
-        { field: 'name', headerName: 'name', width: 130 },
-        { field: 'age', headerName: 'age', width: 130 },
-        { field: 'birthDate', headerName: 'birthDate', width: 170 },
-        { field: 'contact', headerName: 'contact', width: 170 },
-        { field: 'city', headerName: 'city', width: 130 },
+        { field: 'firstname', headerName: 'First name', width: 130 },
+        { field: 'lastname', headerName: 'Last name', width: 130 },
+        { field: 'email', headerName: 'Email id', width: 130 },
+        { field: 'contact', headerName: 'Contact', width: 130 },
         {
-            field: 'Action',
-            headerName: 'action',
-            width: 170,
+            field: 'action',
+            headerName: 'Action',
+            width: 180,
             renderCell: (params) => (
                 <>
                     <IconButton aria-label="edit" onClick={() => handleEdit(params)}>
-                        <ModeEditOutlineIcon />
+                        <EditIcon />
                     </IconButton>
-                    <IconButton aria-label="delete" onClick={() => { handledoClickOpen(); setDidId(params.id) }}>
+                    <IconButton aria-label="delete" onClick={() => { handleDoClickDopen(); setDidid(params.id) }}>
                         <DeleteIcon />
                     </IconButton>
                 </>
+
             )
         },
     ];
 
+    //data ne get karvvva
     const loadData = () => {
-
-        let localData = JSON.parse(localStorage.getItem("patient"))
+        let localData = JSON.parse(localStorage.getItem("doctor"));
 
         if (localData !== null) {
             setData(localData);
@@ -172,30 +164,28 @@ function Patients(props) {
     }
 
     const dispatch = useDispatch()
-    const Patients = useSelector(state => state.Patients)
+    const Docter = useSelector(state => state.Docter)
 
     useEffect(() => {
         // loadData()
-        dispatch(getPatients())
+        dispatch(getDocterdata())
     }, [])
 
     const handlesearch = (val) => {
         console.log(val);
 
-        let localData = JSON.parse(localStorage.getItem("patient"))
+        let localData = JSON.parse(localStorage.getItem("doctor"))
 
-        let fData = localData.filter((p) => (
-            p.name.toLowerCase().includes(val.toLowerCase()) ||
-            p.age.toString().includes(val) ||
-            p.birthDate.toString().includes(val) ||
-            p.contact.toString().includes(val) ||
-            p.city.toLowerCase().includes(val)
+        let fData = localData.filter((d) => (
+            d.firstname.toLowerCase().includes(val.toLowerCase()) ||
+            d.lastname.toLowerCase().includes(val.toLowerCase()) ||
+            d.email.toLowerCase().includes(val.toLowerCase()) ||
+            d.contact.toString().includes(val)
         ))
 
         setFilterData(fData)
 
         console.log(fData);
-
     }
 
     const finalData = filterData.length > 0 ? filterData : data
@@ -203,29 +193,29 @@ function Patients(props) {
     return (
         <div>
             {
-                Patients.isLoading ?
-                    <p>Loading....</p>
+                Docter.isLoading ?
+                    <p>Loading...</p>
                     :
-                    Patients.error !== '' ?
-                        <p>{Patients.error}</p>
+                    Docter.error !== '' ?
+                        <p>{Docter.error}</p>
                         :
                         <div>
-                            <h2>patients{c.counter}</h2>
+                            <h2>Doctor{c.counter}</h2>
                             <Button variant="outlined" onClick={handleClickOpen}>
-                                Add patients
+                                Add Details
                             </Button>
                             <TextField
                                 margin="dense"
                                 name="search"
-                                label="patients search"
+                                label="Doctor search"
                                 type="text"
                                 fullWidth
                                 variant="standard"
-                                onChange={(p) => handlesearch(p.target.value)}
+                                onChange={(d) => handlesearch(d.target.value)}
                             />
                             <div style={{ height: 400, width: '100%' }}>
                                 <DataGrid
-                                    rows={Patients.Patients}
+                                    rows={Docter.Docter}
                                     columns={columns}
                                     pageSize={5}
                                     rowsPerPageOptions={[5]}
@@ -239,8 +229,10 @@ function Patients(props) {
                                 aria-describedby="alert-dialog-description"
                             >
                                 <DialogTitle id="alert-dialog-title">
-                                    {"Are you sure want to delete this data.?"}
+                                    {"Are you sure want to delete?"}
                                 </DialogTitle>
+                                <DialogContent>
+                                </DialogContent>
                                 <DialogActions>
                                     <Button onClick={handleClose}>No</Button>
                                     <Button onClick={handleDelete} autoFocus>
@@ -251,54 +243,54 @@ function Patients(props) {
                             <Dialog open={open} onClose={handleClose} fullWidth>
                                 {
                                     update ?
-                                        <DialogTitle>Update Patients Data</DialogTitle>
+                                        <DialogTitle>Update Doctors Data</DialogTitle>
                                         :
-                                        <DialogTitle>Add Patients Details</DialogTitle>
+                                        <DialogTitle>Doctors Details</DialogTitle>
                                 }
                                 <Formik values={formikObj}>
                                     <Form onSubmit={handleSubmit}>
                                         <DialogContent>
                                             <TextField
-                                                value={values.name}
+                                                value={values.firstname}
                                                 margin="dense"
-                                                name="name"
-                                                label="patients name"
+                                                name="firstname"
+                                                label="Doctor first Name"
                                                 type="text"
                                                 fullWidth
                                                 variant="standard"
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                             />
-                                            {errors.name && touched.name ? <p>{errors.name}</p> : ''}
+                                            {errors.firstname && touched.firstname ? <p>{errors.firstname}</p> : ''}
                                             <TextField
-                                                value={values.age}
+                                                value={values.lastname}
                                                 margin="dense"
-                                                name="age"
-                                                label="patients age"
+                                                name="lastname"
+                                                label="Doctor last Name"
                                                 type="text"
                                                 fullWidth
                                                 variant="standard"
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                             />
-                                            {errors.age && touched.age ? <p>{errors.age}</p> : ''}
+                                            {errors.lastname && touched.lastname ? <p>{errors.lastname}</p> : ''}
                                             <TextField
-                                                value={values.birthDate}
+                                                value={values.email}
                                                 margin="dense"
-                                                name="birthDate"
-                                                label="patients birthDate"
+                                                name="email"
+                                                label="Doctor email id"
                                                 type="text"
                                                 fullWidth
                                                 variant="standard"
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                             />
-                                            {errors.birthDate && touched.birthDate ? <p>{errors.birthDate}</p> : ''}
+                                            {errors.email && touched.email ? <p>{errors.email}</p> : ''}
                                             <TextField
-                                                value={values.contact}
+                                                value={values.specicontact}
                                                 margin="dense"
                                                 name="contact"
-                                                label="patients contact"
+                                                label="Doctor contact"
                                                 type="text"
                                                 fullWidth
                                                 variant="standard"
@@ -306,18 +298,6 @@ function Patients(props) {
                                                 onBlur={handleBlur}
                                             />
                                             {errors.contact && touched.contact ? <p>{errors.contact}</p> : ''}
-                                            <TextField
-                                                value={values.city}
-                                                margin="dense"
-                                                name="city"
-                                                label="patients city"
-                                                type="text"
-                                                fullWidth
-                                                variant="standard"
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                            />
-                                            {errors.city && touched.city ? <p>{errors.city}</p> : ''}
                                             <DialogActions>
                                                 <Button onClick={handleClose}>Cancel</Button>
                                                 {
@@ -333,9 +313,9 @@ function Patients(props) {
                             </Dialog>
                         </div>
             }
-        </div>
+        </div>  
 
     );
 }
 
-export default Patients;
+export default Doctors;

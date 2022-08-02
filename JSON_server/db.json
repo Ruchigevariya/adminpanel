@@ -1,0 +1,156 @@
+{
+  "medicines": [
+    {
+      "id": 1,
+      "name": "ABC",
+      "price": 20,
+      "quantity": 1,
+      "expiry": 2024
+    },
+    {
+      "id": 2,
+      "name": "DEF",
+      "price": 120,
+      "quantity": 1,
+      "expiry": 2022
+    },
+    {
+      "id": 3,
+      "name": "PQR",
+      "price": 80,
+      "quantity": 1,
+      "expiry": 2022
+    },
+    {
+      "id": 4,
+      "name": "MNP",
+      "price": 135,
+      "quantity": 1,
+      "expiry": 2024
+    },
+    {
+      "id": 5,
+      "name": "XYZ",
+      "price": 170,
+      "quantity": 1,
+      "expiry": 2025
+    },
+    {
+      "id": 6,
+      "name": "XYZ",
+      "price": 20,
+      "quantity": 1,
+      "expiry": 2024
+    },
+    {
+      "id": 6431,
+      "name": "ruchi",
+      "price": "50",
+      "quantity": "2",
+      "expiry": "2023"
+    }
+  ],
+  "patients": [
+    {
+      "id": 1,
+      "name": "ABC",
+      "age": 25,
+      "birthDate": 2232000,
+      "contact": 8866457324,
+      "city": "surat"
+    },
+    {
+      "id": 2,
+      "name": "PQR",
+      "age": 25,
+      "birthDate": 2232000,
+      "contact": 5415257854,
+      "city": "pune"
+    },
+    {
+      "id": 3,
+      "name": "MNP",
+      "age": 25,
+      "birthDate": 2232000,
+      "contact": 5544332211,
+      "city": "ahmedabad"
+    },
+    {
+      "id": 4,
+      "name": "XYZ",
+      "age": 25,
+      "birthDate": 2232000,
+      "contact": 9988776655,
+      "city": "mubai"
+    },
+    {
+      "id": 5,
+      "name": "DEF",
+      "age": 25,
+      "birthDate": 2232000,
+      "contact": 2256387459,
+      "city": "vadodara"
+    },
+    {
+      "id": 153,
+      "name": "ruchi",
+      "age": "22",
+      "birthDate": "22-3-2000",
+      "contact": "9510030084",
+      "city": "surat"
+    }
+  ],
+  "docter": [
+    {
+      "id": 1,
+      "firstname": "Ruchi",
+      "lastname": "gevariya",
+      "emailid": "rrr@gmail.com",
+      "contact": 8866457324
+    },
+    {
+      "id": 2,
+      "firstname": "dhara",
+      "lastname": "mangaroliya",
+      "emailid": "ddd452@gmail.com",
+      "contact": 5415257854
+    },
+    {
+      "id": 3,
+      "firstname": "richa",
+      "lastname": "hapani",
+      "emailid": "hhh@gmail.com",
+      "contact": 5544332211
+    },
+    {
+      "id": 4,
+      "firstname": "anarya",
+      "lastname": "patel",
+      "emailid": "pa34@gmail.com",
+      "contact": 9988776655
+    },
+    {
+      "id": 5,
+      "firstname": "khushi",
+      "lastname": "khakhriya",
+      "emailid": "ko56@gmail.com",
+      "contact": 2256387459
+    },
+    {
+      "id": 6
+    },
+    {
+      "id": 7
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
