@@ -30,7 +30,13 @@ export const getPatients = () => (dispatch) => {
     }
 }
 
+export const addpatients = (data) => (dispatch) => {
+    try{
+        fetch( baseUrl + 'patients')
+    } catch (error) {
 
+    }
+}
 export const loadingPatients = () => (dispatch) => {
     dispatch({ type: ActionTypes.LOADING_PATIENTS })
 }

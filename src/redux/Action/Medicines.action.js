@@ -33,7 +33,7 @@ export const getMedicines = () => (dispatch) => {
 
 export const addMedicines = (data) => (dispatch) => {
     try {
-        fetch(baseUrl + '/medicines', {
+        fetch(baseUrl + 'medicines', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
