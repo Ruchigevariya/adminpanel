@@ -22,6 +22,13 @@ export const docterReducer = (state = initVal, action) => {
                 Docter: state.Docter.concat(action.payload),
                 error: ''
             }
+        case ActionTypes.DELETE_DOCTERDATA:
+            return {
+                ...state,
+                isLoading: false,
+                Docter: state.Docter.filter((d) => d.id !== action.payload),
+                error: ''
+            }
         case ActionTypes.LOADING_DOCTER:
             return {
                 ...state,

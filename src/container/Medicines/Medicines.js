@@ -13,7 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMedicines, getMedicines } from '../../redux/Action/Medicines.action';
+import { addMedicines, deleteMedicines, getMedicines } from '../../redux/Action/Medicines.action';
 
 function Medicines(props) {
   const [open, setOpen] = useState(false);
@@ -117,13 +117,15 @@ function Medicines(props) {
   // console.log(errors);
 
   const handleDelete = () => {
-    let localData = JSON.parse(localStorage.getItem("medicine"));
+    // let localData = JSON.parse(localStorage.getItem("medicine"));
 
-    let fdata = localData.filter((l) => l.id !== didid)
+    // let fdata = localData.filter((l) => l.id !== didid)
 
-    // console.log(fdata,params.id);
+    // // console.log(fdata,params.id);
 
-    localStorage.setItem("medicine", JSON.stringify(fdata))
+    // localStorage.setItem("medicine", JSON.stringify(fdata))
+
+    dispatch(deleteMedicines(didid))
 
     loadData();
 

@@ -13,7 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import { useDispatch, useSelector } from 'react-redux';
-import { addpatients, getPatients } from '../../redux/Action/Patients.action';
+import { addpatients, deletePatientsdata, getPatients } from '../../redux/Action/Patients.action';
 
 function Patients(props) {
     const [open, setOpen] = React.useState(false);
@@ -117,12 +117,14 @@ function Patients(props) {
     const { handleChange, errors, handleSubmit, touched, handleBlur, values } = formikObj;
 
     const handleDelete = () => {
-        let localData = JSON.parse(localStorage.getItem("patient"))
-        // console.log(params.id);
-        let fdata = localData.filter((l) => l.id !== didid)
-        // console.log(fdata);
+        // let localData = JSON.parse(localStorage.getItem("patient"))
+        // // console.log(params.id);
+        // let fdata = localData.filter((l) => l.id !== didid)
+        // // console.log(fdata);
 
-        localStorage.setItem("patient", JSON.stringify(fdata))
+        // localStorage.setItem("patient", JSON.stringify(fdata))
+
+        dispatch(deletePatientsdata(didid))
 
         loadData();
 

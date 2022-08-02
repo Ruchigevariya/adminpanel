@@ -15,39 +15,18 @@
       "expiry": 2022
     },
     {
-      "id": 3,
+      "id": 7747,
       "name": "PQR",
-      "price": 80,
-      "quantity": 1,
-      "expiry": 2022
-    },
-    {
-      "id": 4,
-      "name": "MNP",
-      "price": 135,
-      "quantity": 1,
-      "expiry": 2024
-    },
-    {
-      "id": 5,
-      "name": "XYZ",
-      "price": 170,
-      "quantity": 1,
-      "expiry": 2025
-    },
-    {
-      "id": 6,
-      "name": "XYZ",
-      "price": 20,
-      "quantity": 1,
-      "expiry": 2024
-    },
-    {
-      "id": 6431,
-      "name": "ruchi",
-      "price": "50",
-      "quantity": "2",
+      "price": "20",
+      "quantity": "3",
       "expiry": "2023"
+    },
+    {
+      "id": 2590,
+      "name": "XYZ",
+      "price": "129",
+      "quantity": "2",
+      "expiry": "2024"
     }
   ],
   "patients": [
@@ -60,43 +39,27 @@
       "city": "surat"
     },
     {
-      "id": 2,
+      "id": 87,
       "name": "PQR",
-      "age": 25,
-      "birthDate": 2232000,
-      "contact": 5415257854,
-      "city": "pune"
-    },
-    {
-      "id": 3,
-      "name": "MNP",
-      "age": 25,
-      "birthDate": 2232000,
-      "contact": 5544332211,
-      "city": "ahmedabad"
-    },
-    {
-      "id": 4,
-      "name": "XYZ",
-      "age": 25,
-      "birthDate": 2232000,
-      "contact": 9988776655,
+      "age": "22",
+      "birthDate": "22-3-2000",
+      "contact": "1545125454",
       "city": "mubai"
     },
     {
-      "id": 5,
+      "id": 650,
       "name": "DEF",
-      "age": 25,
-      "birthDate": 2232000,
-      "contact": 2256387459,
-      "city": "vadodara"
-    },
-    {
-      "id": 153,
-      "name": "ruchi",
       "age": "22",
       "birthDate": "22-3-2000",
       "contact": "9510030084",
+      "city": "surat"
+    },
+    {
+      "id": 853,
+      "name": "ruchi gevariya",
+      "age": "21",
+      "birthDate": "22-3-2000",
+      "contact": "9374716447",
       "city": "surat"
     }
   ],
@@ -105,35 +68,35 @@
       "id": 1,
       "firstname": "Ruchi",
       "lastname": "gevariya",
-      "emailid": "rrr@gmail.com",
+      "email": "rrr@gmail.com",
       "contact": 8866457324
     },
     {
       "id": 2,
       "firstname": "dhara",
       "lastname": "mangaroliya",
-      "emailid": "ddd452@gmail.com",
+      "email": "ddd452@gmail.com",
       "contact": 5415257854
     },
     {
       "id": 3,
       "firstname": "richa",
       "lastname": "hapani",
-      "emailid": "hhh@gmail.com",
+      "email": "hhh@gmail.com",
       "contact": 5544332211
     },
     {
       "id": 4,
       "firstname": "anarya",
       "lastname": "patel",
-      "emailid": "pa34@gmail.com",
+      "email": "pa34@gmail.com",
       "contact": 9988776655
     },
     {
       "id": 5,
       "firstname": "khushi",
       "lastname": "khakhriya",
-      "emailid": "ko56@gmail.com",
+      "email": "ko56@gmail.com",
       "contact": 2256387459
     },
     {

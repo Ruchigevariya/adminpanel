@@ -12,7 +12,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useDispatch, useSelector } from 'react-redux';
-import { addDocterData, getDocterdata } from '../../redux/Action/Docter.action';
+import { addDocterData, deleteDocterData, getDocterdata } from '../../redux/Action/Docter.action';
 
 function Doctors(props) {
     const [open, setOpen] = useState(false);
@@ -109,13 +109,15 @@ function Doctors(props) {
     const { handleChange, handleSubmit, errors, handleBlur, touched, values } = formikObj;
 
     const handleDelete = () => {
-        let localData = JSON.parse(localStorage.getItem("doctor"))
+        // let localData = JSON.parse(localStorage.getItem("doctor"))
 
-        let fData = localData.filter((l) => l.id !== didid)
+        // let fData = localData.filter((l) => l.id !== didid)
 
-        // console.log(fdata,params.id);
+        // // console.log(fdata,params.id);
 
-        localStorage.setItem("doctor", JSON.stringify(fData))
+        // localStorage.setItem("doctor", JSON.stringify(fData))
+
+        dispatch(deleteDocterData(didid))
 
         loadData()
         handleClose()

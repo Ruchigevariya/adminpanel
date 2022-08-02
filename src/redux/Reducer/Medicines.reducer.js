@@ -22,6 +22,13 @@ export const medicinesReducer = (state = initVal, action) => {
                 Medicines: state.Medicines.concat(action.payload),
                 error: ''
             }
+        case ActionTypes.DELETE_MEDICINESDATA:
+            return {
+                ...state,
+                isLoading: false,
+                Medicines: state.Medicines.filter((m) => m.id !== action.payload),
+                error: ''
+            }
         case ActionTypes.LOADING_MEDICINES:
             return {
                 ...state,

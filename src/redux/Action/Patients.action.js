@@ -63,6 +63,35 @@ export const addpatients = (data) => (dispatch) => {
         dispatch(errorPatients(error.message))
     }
 }
+
+export const deletePatientsdata = (id) => (dispatch) => {
+    console.log(id);
+    try{
+        fetch(baseUrl + 'patients/' + id ,{
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                var error = new Error(' Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },
+            error => {
+                var errmess = new Error(error.message);
+                throw errmess;
+            })
+        .then((response) => response.json())
+        .then(dispatch({ type: ActionTypes.DELETE_PATIENTSDATA, payload: id}))
+        .catch((error) => {
+            dispatch(errorPatients(error.message))
+        });
+    } catch (error) {
+        dispatch(errorPatients(error.message))
+    }
+}
 export const loadingPatients = () => (dispatch) => {
     dispatch({ type: ActionTypes.LOADING_PATIENTS })
 }
