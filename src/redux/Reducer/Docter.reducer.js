@@ -29,6 +29,19 @@ export const docterReducer = (state = initVal, action) => {
                 Docter: state.Docter.filter((d) => d.id !== action.payload),
                 error: ''
             }
+        case ActionTypes.UPDATE_DOCTERDATA:
+            return {
+                ...state,
+                isLoading: false,
+                Docter: state.Docter.map((d) => {
+                    if (d.id === action.payload.id) {
+                        return action.payload;
+                    } else {
+                        return d;
+                    }
+                }),
+                error: ''
+            }
         case ActionTypes.LOADING_DOCTER:
             return {
                 ...state,

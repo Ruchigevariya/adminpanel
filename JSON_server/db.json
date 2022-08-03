@@ -32,7 +32,7 @@
   "patients": [
     {
       "id": 1,
-      "name": "ABC",
+      "name": "ABCD",
       "age": 25,
       "birthDate": 2232000,
       "contact": 8866457324,
@@ -40,7 +40,7 @@
     },
     {
       "id": 87,
-      "name": "PQR",
+      "name": "PQRS",
       "age": "22",
       "birthDate": "22-3-2000",
       "contact": "1545125454",
@@ -48,7 +48,7 @@
     },
     {
       "id": 650,
-      "name": "DEF",
+      "name": "DEFG",
       "age": "22",
       "birthDate": "22-3-2000",
       "contact": "9510030084",
@@ -80,7 +80,7 @@
     },
     {
       "id": 3,
-      "firstname": "richa",
+      "firstname": "richaaa",
       "lastname": "hapani",
       "email": "hhh@gmail.com",
       "contact": 5544332211
@@ -94,7 +94,7 @@
     },
     {
       "id": 5,
-      "firstname": "khushi",
+      "firstname": "khushii",
       "lastname": "khakhriya",
       "email": "ko56@gmail.com",
       "contact": 2256387459

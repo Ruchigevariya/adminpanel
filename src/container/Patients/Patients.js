@@ -13,7 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import { useDispatch, useSelector } from 'react-redux';
-import { addpatients, deletePatientsdata, getPatients } from '../../redux/Action/Patients.action';
+import { addpatients, deletePatientsdata, getPatients, updatePatientsData } from '../../redux/Action/Patients.action';
 
 function Patients(props) {
     const [open, setOpen] = React.useState(false);
@@ -70,17 +70,19 @@ function Patients(props) {
     const handleUpdateData = (values) => {
         // console.log(values);
 
-        let localData = JSON.parse(localStorage.getItem("patient"));
+        // let localData = JSON.parse(localStorage.getItem("patient"));
 
-        let uData = localData.map((l) => {
-            if (l.id === values.id) {
-                return values;
-            } else {
-                return l;
-            }
-        })
+        // let uData = localData.map((l) => {
+        //     if (l.id === values.id) {
+        //         return values;
+        //     } else {
+        //         return l;
+        //     }
+        // })
 
-        localStorage.setItem("patient", JSON.stringify(uData))
+        // localStorage.setItem("patient", JSON.stringify(uData))
+
+        dispatch(updatePatientsData(values))
 
         loadData();
 

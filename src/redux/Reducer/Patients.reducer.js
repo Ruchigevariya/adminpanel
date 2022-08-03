@@ -30,6 +30,19 @@ export const pattientsReducer = (state = initVal, action) => {
                 Patients: state.Patients.filter((p) => p.id !== action.payload),
                 error: ''
             }
+        case ActionTypes.UPDATE_PATIENTSDATA:
+            return {
+                ...state,
+                isLoading: false,
+                Patients: state.Patients.map((p) =>{
+                    if(p.id === action.payload.id){
+                        return action.payload;
+                    }else{
+                        return p;
+                    }
+                }),
+                error: ''
+            }
         case ActionTypes.LOADING_PATIENTS:
             return {
                 ...state,

@@ -93,6 +93,41 @@ export const deleteDocterData = (id) => (dispatch) => {
     dispatch(errorDocter(error.message))
   }
 }
+
+export const updateDocterData = (data) => (dispatch) => {
+  console.log(data);
+  try{
+    fetch(baseUrl + 'docter/' + data.id , {
+      method: 'PuT', 
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        var error = new Error(' Error ' + response.status + ': ' + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    },
+      error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      })
+    .then((response) => response.json())
+    .then((data) => {
+      dispatch({ type: ActionTypes.UPDATE_DOCTERDATA, payload: data })
+    })
+    .catch((error) => {
+      dispatch(errorDocter(error.message))
+    });
+  } catch(error) {
+    dispatch(errorDocter(error.message))
+  }
+}
 export const loadingDocter = () => (dispatch) => {
   dispatch({ type: ActionTypes.LOADING_DOCTER })
 }
