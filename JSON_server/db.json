@@ -2,21 +2,21 @@
   "medicines": [
     {
       "id": 1,
-      "name": "ABCD",
+      "name": "ABCDE",
       "price": 20,
       "quantity": 1,
       "expiry": 2024
     },
     {
       "id": 2,
-      "name": "DEF",
+      "name": "DEFG",
       "price": 120,
       "quantity": 1,
       "expiry": 2022
     },
     {
       "id": 7747,
-      "name": "PQR",
+      "name": "PQRS",
       "price": "20",
       "quantity": "3",
       "expiry": "2023"
@@ -24,7 +24,7 @@
     {
       "id": 2590,
       "name": "XYZ",
-      "price": "129",
+      "price": "1299",
       "quantity": "2",
       "expiry": "2024"
     }

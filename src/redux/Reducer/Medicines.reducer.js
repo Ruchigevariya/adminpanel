@@ -26,16 +26,16 @@ export const medicinesReducer = (state = initVal, action) => {
             return {
                 ...state,
                 isLoading: false,
-                Medicines: state.Medicines.map((m) => m.id !== action.payload),
+                Medicines: state.Medicines.filter((m) => m.id !== action.payload),
                 error: ''
             }
         case ActionTypes.UPDATE_MEDICINESDATA:
             return {
                 ...state,
                 isLoading: false,
-                Medicines: state.Medicines.filter((m) => {
+                Medicines: state.Medicines.map((m) => {
                     if(m.id === action.payload.id){
-                        return action.payload.id;
+                        return action.payload;
                     }else{
                         return m;
                     }
