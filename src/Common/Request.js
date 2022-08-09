@@ -27,3 +27,21 @@ export const postRequest = (path, data) => {
         },
     })
 }
+
+export const deleteRequest = (path, id) => {
+    return sendRequest({
+        method:'DELETE',
+        url:path + id
+    })
+}
+
+export const putRequest = (path, data) => {
+    return sendRequest({
+        method:'PUT',
+        url:path + data.id,
+        data:JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+}

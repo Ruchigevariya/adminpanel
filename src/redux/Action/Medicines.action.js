@@ -1,4 +1,4 @@
-import { getMedicinesData, postMedicinesData } from '../../Common/Apis/Medicines.api'
+import { deleteMedicinesData, getMedicinesData, postMedicinesData, putMedicinesData } from '../../Common/Apis/Medicines.api'
 import { baseUrl } from '../../Shares/BaseUrl'
 import * as ActionTypes from '../ActionTypes'
 
@@ -80,27 +80,32 @@ export const addMedicines = (data) => (dispatch) => {
 export const deleteMedicines = (id) => (dispatch) => {
     console.log(id);
     try{
-        fetch(baseUrl + 'medicines/'+ id, {
-            method: 'DELETE'
-        })
-        .then(response => {
-            if (response.ok) {
-                return response;
-            } else {
-                var error = new Error(' Error ' + response.status + ': ' + response.statusText);
-                error.response = response;
-                throw error;
-            }
-        },
-            error => {
-                var errmess = new Error(error.message);
-                throw errmess;
-            })
-        .then((response) => response.json())
+        deleteMedicinesData(id)
         .then(dispatch({ type: ActionTypes.DELETE_MEDICINESDATA, payload: id }))
         .catch((error) => {
             dispatch(errorMedicines(error.message))
         });
+        // fetch(baseUrl + 'medicines/'+ id, {
+        //     method: 'DELETE'
+        // })
+        // .then(response => {
+        //     if (response.ok) {
+        //         return response;
+        //     } else {
+        //         var error = new Error(' Error ' + response.status + ': ' + response.statusText);
+        //         error.response = response;
+        //         throw error;
+        //     }
+        // },
+        //     error => {
+        //         var errmess = new Error(error.message);
+        //         throw errmess;
+        //     })
+        // .then((response) => response.json())
+        // .then(dispatch({ type: ActionTypes.DELETE_MEDICINESDATA, payload: id }))
+        // .catch((error) => {
+        //     dispatch(errorMedicines(error.message))
+        // });
     } catch(error) {
         dispatch(errorMedicines(error.message))
     }
@@ -109,36 +114,42 @@ export const deleteMedicines = (id) => (dispatch) => {
 export const updateMedicines = (data) => (dispatch) => {
     console.log(data);
     try{
-        fetch(baseUrl + 'medicines/' + data.id ,{
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),  
-        })
-        .then(response => {
-            if (response.ok) {
-                return response;
-            } else {
-                var error = new Error(' Error ' + response.status + ': ' + response.statusText);
-                error.response = response;
-                throw error;
-            }
-        },
-            error => {
-                var errmess = new Error(error.message);
-                throw errmess;
-            })
-        .then((response) => response.json())
-        .then((data) => {dispatch({ type: ActionTypes.UPDATE_MEDICINESDATA, payload: data })})
+        putMedicinesData(data)
+        .then((data) => {dispatch({ type: ActionTypes.UPDATE_MEDICINESDATA, payload: data.data })})
         .catch((error) => {
             dispatch(errorMedicines(error.message))
         });
+        // fetch(baseUrl + 'medicines/' + data.id ,{
+        //     method: 'PUT',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(data),  
+        // })
+        // .then(response => {
+        //     if (response.ok) {
+        //         return response;
+        //     } else {
+        //         var error = new Error(' Error ' + response.status + ': ' + response.statusText);
+        //         error.response = response;
+        //         throw error;
+        //     }
+        // },
+        //     error => {
+        //         var errmess = new Error(error.message);
+        //         throw errmess;
+        //     })
+        // .then((response) => response.json())
+        // .then((data) => {dispatch({ type: ActionTypes.UPDATE_MEDICINESDATA, payload: data })})
+        // .catch((error) => {
+        //     dispatch(errorMedicines(error.message))
+        // });
     } catch (error) {
           dispatch(errorMedicines(error.message))
     }
 
 }
+
 export const loadingMedicines = () => (dispatch) => {
     dispatch({ type: ActionTypes.LOADING_MEDICINES })
 }
