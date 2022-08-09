@@ -34,7 +34,7 @@
       "id": 1,
       "name": "ABCD",
       "age": 25,
-      "birthDate": 2232000,
+      "birthDate": "22-3-2000",
       "contact": 8866457324,
       "city": "surat"
     },
@@ -53,14 +53,6 @@
       "birthDate": "22-3-2000",
       "contact": "9510030084",
       "city": "surat"
-    },
-    {
-      "id": 853,
-      "name": "ruchi gevariya",
-      "age": "21",
-      "birthDate": "22-3-2000",
-      "contact": "9374716447",
-      "city": "surat"
     }
   ],
   "docter": [
@@ -76,34 +68,17 @@
       "firstname": "dhara",
       "lastname": "mangaroliya",
       "email": "ddd452@gmail.com",
-      "contact": 5415257854
-    },
-    {
-      "id": 3,
-      "firstname": "richaaa",
-      "lastname": "hapani",
-      "email": "hhh@gmail.com",
-      "contact": 5544332211
+      "contact": "9016200730"
     },
     {
       "id": 4,
-      "firstname": "anaryaa",
+      "firstname": "anaryaaaa",
       "lastname": "patel",
       "email": "pa34@gmail.com",
-      "contact": 9988776655
+      "contact": "9016200730"
     },
     {
-      "id": 5,
-      "firstname": "khushii",
-      "lastname": "khakhriya",
-      "email": "ko56@gmail.com",
-      "contact": 2256387459
-    },
-    {
-      "id": 6
-    },
-    {
-      "id": 7
+      "id": 5
     }
   ],
   "comments": [
