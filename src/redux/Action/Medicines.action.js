@@ -38,8 +38,13 @@ export const getMedicines = () => (dispatch) => {
 
 export const addMedicines = (data) => (dispatch) => {
     try {
-        postMedicinesData()
-        .then((data) => { console.log(data) })
+        postMedicinesData(data)
+        .then((data) => {
+                    dispatch({ type: ActionTypes.ADD_MEDICINESDATA, payload: data.data })
+                })
+                .catch((error) => {
+                    dispatch(errorMedicines(error.message))
+                });
         // fetch(baseUrl + 'medicines', {
         //     method: 'POST',
         //     headers: {

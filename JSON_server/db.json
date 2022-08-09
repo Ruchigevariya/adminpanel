@@ -29,13 +29,11 @@
       "expiry": "2024"
     },
     {
-      "id": 7749
-    },
-    {
-      "id": 7750
-    },
-    {
-      "id": 7751
+      "id": 4010,
+      "name": "ruchi gevariya",
+      "price": "2",
+      "quantity": "10",
+      "expiry": "2025"
     }
   ],
   "patients": [
