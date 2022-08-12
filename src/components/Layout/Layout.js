@@ -23,6 +23,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import { NavLink } from 'react-router-dom';
 import VaccinesIcon from '@mui/icons-material/Vaccines';
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
+import DirectionsIcon from '@mui/icons-material/Directions';
 
 const drawerWidth = 240;
 
@@ -108,6 +109,7 @@ export default function Layout({children}) {
     {label:"Patients", to: "patients", icon: <PersonIcon/>},
     {label:"Docter", to: "docter", icon: <VaccinesIcon/>},
     {label:"Counter", to: "counter", icon: <HourglassBottomIcon/>},
+    {label:"Promise", to: "promise", icon: <DirectionsIcon/>}
   ];
   
   return (
