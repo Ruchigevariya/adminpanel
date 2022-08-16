@@ -10,7 +10,7 @@ function Promise_Example(props) {
         // with promise
         const  promise = new Promise((resolve, reject) => {
             setTimeout(() => {
-                resolve ("two");
+                resolve ("Two");
             },2000)
         })
 
@@ -23,7 +23,7 @@ function Promise_Example(props) {
     }
 
     const three = () => {
-        return "three";
+        return "Three";
     }
 
     const All = async() => {
