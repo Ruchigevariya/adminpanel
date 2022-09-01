@@ -44,15 +44,15 @@ function Doctors(props) {
 
         // let localData = JSON.parse(localStorage.getItem("doctor"))
 
-        let id = Math.floor(Math.random() * 10000);
-        console.log(id);
+        // let id = Math.floor(Math.random() * 10000);
+        // console.log(id);
 
-        let data = {
-            id: id,
-            ...values
-        }
+        // let data = {
+        //     id: id,
+        //     ...values
+        // }
 
-        dispatch(addDocterData(data))
+        dispatch(addDocterData(values))
         // if (localData === null) {
         //     localStorage.setItem("doctor", JSON.stringify([data]))
         // } else {

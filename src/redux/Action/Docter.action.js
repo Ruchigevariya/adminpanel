@@ -1,7 +1,8 @@
 import { deleteDoctersData, getDoctersData, postDoctersData, putDoctersData } from '../../Common/Apis/Docter.api';
+import { db } from '../../firebase';
 import { baseUrl } from '../../Shares/BaseUrl';
 import * as ActionTypes from '../ActionTypes'
-
+import { collection, addDoc } from "firebase/firestore"; 
 export const getDocterdata = () => (dispatch) => {
   try {
     dispatch(loadingDocter())
@@ -36,15 +37,18 @@ export const getDocterdata = () => (dispatch) => {
   }
 }
 
-export const addDocterData = (data) => (dispatch) => {
+export const addDocterData = (data) => async(dispatch) => {
   try{
-    postDoctersData(data)
-    .then((data) => {
-          dispatch({ type: ActionTypes.ADD_DOCTERDATA, payload: data.data })
-        })
-        .catch((error) => {
-          dispatch(errorDocter(error.message))
-        });
+    const docRef = await addDoc(collection(db, "docter"), data);
+    console.log("Document written with ID: ", docRef.id);
+    dispatch({type: ActionTypes.ADD_DOCTERDATA, payload: {id:docRef.id, ...data}})
+    // postDoctersData(data)
+    // .then((data) => {
+    //       dispatch({ type: ActionTypes.ADD_DOCTERDATA, payload: data.data })
+    //     })
+    //     .catch((error) => {
+    //       dispatch(errorDocter(error.message))
+    //     });
     // fetch(baseUrl + 'docter', {
     //   method: 'POST', 
     //   headers: {
