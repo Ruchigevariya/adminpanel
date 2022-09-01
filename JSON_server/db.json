@@ -2,7 +2,7 @@
   "medicines": [
     {
       "id": 1,
-      "name": "ABCD",
+      "name": "ABCDE",
       "price": 20,
       "quantity": 1,
       "expiry": 2024
@@ -34,7 +34,7 @@
       "id": 1,
       "name": "ABCD",
       "age": 25,
-      "birthDate": "22-3-2000",
+      "birthDate": 2232000,
       "contact": 8866457324,
       "city": "surat"
     },
@@ -55,15 +55,57 @@
       "city": "surat"
     },
     {
-      "id": 516,
-      "name": "mefta",
-      "age": "22",
+      "id": 853,
+      "name": "ruchi gevariya",
+      "age": "21",
       "birthDate": "22-3-2000",
-      "contact": "1545125454",
-      "city": "mubai"
+      "contact": "9374716447",
+      "city": "surat"
     }
   ],
-  "docter": [],
+  "docter": [
+    {
+      "id": 1,
+      "firstname": "Ruchi",
+      "lastname": "gevariya",
+      "email": "rrr@gmail.com",
+      "contact": 8866457324
+    },
+    {
+      "id": 2,
+      "firstname": "dhara",
+      "lastname": "mangaroliya",
+      "email": "ddd452@gmail.com",
+      "contact": 5415257854
+    },
+    {
+      "id": 3,
+      "firstname": "richaaa",
+      "lastname": "hapani",
+      "email": "hhh@gmail.com",
+      "contact": 5544332211
+    },
+    {
+      "id": 4,
+      "firstname": "anaryaa",
+      "lastname": "patel",
+      "email": "pa34@gmail.com",
+      "contact": 9988776655
+    },
+    {
+      "id": 5,
+      "firstname": "khushii",
+      "lastname": "khakhriya",
+      "email": "ko56@gmail.com",
+      "contact": 2256387459
+    },
+    {
+      "id": 6
+    },
+    {
+      "id": 7
+    }
+  ],
   "comments": [
     {
       "id": 1,
