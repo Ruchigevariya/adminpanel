@@ -42,17 +42,17 @@ function Patients(props) {
 
     const handleInsert = (values) => {
         console.log(values);
-        let localData = JSON.parse(localStorage.getItem("patient"))
+        // let localData = JSON.parse(localStorage.getItem("patient"))
 
-        let id = Math.floor(Math.random() * 1000);
-        console.log(id);
+        // let id = Math.floor(Math.random() * 1000);
+        // console.log(id);
 
-        let data = {
-            id: id,
-            ...values
-        }
+        // let data = {
+        //     id: id,
+        //     ...values
+        // }
 
-        dispatch(addpatients(data))
+        dispatch(addpatients(values))
 
         // if (localData === null) {
         //     localStorage.setItem("patient", JSON.stringify([data]))
