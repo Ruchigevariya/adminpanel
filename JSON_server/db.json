@@ -2,7 +2,7 @@
   "medicines": [
     {
       "id": 1,
-      "name": "ABCDE",
+      "name": "ABCD",
       "price": 20,
       "quantity": 1,
       "expiry": 2024
@@ -34,7 +34,7 @@
       "id": 1,
       "name": "ABCD",
       "age": 25,
-      "birthDate": 2232000,
+      "birthDate": "22-3-2000",
       "contact": 8866457324,
       "city": "surat"
     },
@@ -55,12 +55,12 @@
       "city": "surat"
     },
     {
-      "id": 853,
-      "name": "ruchi gevariya",
-      "age": "21",
+      "id": 516,
+      "name": "mefta",
+      "age": "22",
       "birthDate": "22-3-2000",
-      "contact": "9374716447",
-      "city": "surat"
+      "contact": "1545125454",
+      "city": "mubai"
     }
   ],
   "docter": [
@@ -76,7 +76,7 @@
       "firstname": "dhara",
       "lastname": "mangaroliya",
       "email": "ddd452@gmail.com",
-      "contact": 5415257854
+      "contact": "9016200730"
     },
     {
       "id": 4,
