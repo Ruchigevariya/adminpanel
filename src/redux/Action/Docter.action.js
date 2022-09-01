@@ -3,15 +3,16 @@ import { db } from '../../firebase';
 import { baseUrl } from '../../Shares/BaseUrl';
 import * as ActionTypes from '../ActionTypes'
 import { collection, addDoc } from "firebase/firestore"; 
+
 export const getDocterdata = () => (dispatch) => {
   try {
-    dispatch(loadingDocter())
+    // dispatch(loadingDocter())
 
-    setTimeout(function () {
-      getDoctersData()
+    // setTimeout(function () {
+    //   getDoctersData()
 
-      .then((data) => dispatch({ type: ActionTypes.GET_DOCTERDATA, payload: data.data }))
-      .catch((error) => dispatch(errorDocter(error.message)));
+      // .then((data) => dispatch({ type: ActionTypes.GET_DOCTERDATA, payload: data.data }))
+      // .catch((error) => dispatch(errorDocter(error.message)));
 
       // fetch(baseUrl + 'docter')
       //   .then(response => {
@@ -30,7 +31,7 @@ export const getDocterdata = () => (dispatch) => {
       //   .then(response => response.json())
       //   .then((data) => dispatch({ type: ActionTypes.GET_DOCTERDATA, payload: data }))
       //   .catch((error) => dispatch(errorDocter(error.message)));
-    }, 2000)
+    // }, 2000)
 
   } catch (error) {
     dispatch(errorDocter(error.message))
@@ -42,6 +43,7 @@ export const addDocterData = (data) => async(dispatch) => {
     const docRef = await addDoc(collection(db, "docter"), data);
     console.log("Document written with ID: ", docRef.id);
     dispatch({ type: ActionTypes.ADD_DOCTERDATA, payload: {id:docRef.id, ...data} })
+    
     // postDoctersData(data)
     // .then((data) => {
     //       dispatch({ type: ActionTypes.ADD_DOCTERDATA, payload: data.data })
