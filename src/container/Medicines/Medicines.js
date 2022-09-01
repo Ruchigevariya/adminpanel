@@ -45,15 +45,15 @@ function Medicines(props) {
 
     // let localData = JSON.parse(localStorage.getItem("medicine"))
 
-    let id = Math.floor(Math.random() * 10000);
-    console.log(id);
+    // let id = Math.floor(Math.random() * 10000);
+    // console.log(id);
 
-    let data = {
-      id: id,
-      ...values
-    }
+    // let data = {
+    //   id: id,
+    //   ...values
+    // }
 
-    dispatch(addMedicines(data))
+    dispatch(addMedicines(values))
 
     // if (localData === null) {
     //   localStorage.setItem("medicine", JSON.stringify([data]))

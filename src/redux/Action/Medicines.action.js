@@ -1,34 +1,36 @@
 import { deleteMedicinesData, getMedicinesData, postMedicinesData, putMedicinesData } from '../../Common/Apis/Medicines.api'
+import { db } from '../../firebase'
 import { baseUrl } from '../../Shares/BaseUrl'
 import * as ActionTypes from '../ActionTypes'
+import { collection, addDoc } from "firebase/firestore"; 
 
 export const getMedicines = () => (dispatch) => {
     try {
-        dispatch(loadingMedicines())
+        // dispatch(loadingMedicines())
 
-        setTimeout(function () {
-            getMedicinesData()
-            .then((data) => dispatch({ type: ActionTypes.GET_MEDICINESDATA, payload: data.data }))
-                .catch((error) => dispatch(errorMedicines(error.message)))
+        // setTimeout(function () {
+        //     getMedicinesData()
+        //     .then((data) => dispatch({ type: ActionTypes.GET_MEDICINESDATA, payload: data.data }))
+        //         .catch((error) => dispatch(errorMedicines(error.message)))
 
-            // fetch(baseUrl + 'medicines')
-            //     .then(response => {
-            //         if (response.ok) {
-            //             return response;
-            //         } else {
-            //             var error = new Error(' Error ' + response.status + ': ' + response.statusText);
-            //             error.response = response;
-            //             throw error;
-            //         }
-            //     },
-            //         error => {
-            //             var errmess = new Error(error.message);
-            //             throw errmess;
-            //         })
-            //     .then((response) => response.json())
-            //     .then((data) => dispatch({ type: ActionTypes.GET_MEDICINESDATA, payload: data }))
-            //     .catch((error) => dispatch(errorMedicines(error.message)))
-        }, 2000)
+        // fetch(baseUrl + 'medicines')
+        //     .then(response => {
+        //         if (response.ok) {
+        //             return response;
+        //         } else {
+        //             var error = new Error(' Error ' + response.status + ': ' + response.statusText);
+        //             error.response = response;
+        //             throw error;
+        //         }
+        //     },
+        //         error => {
+        //             var errmess = new Error(error.message);
+        //             throw errmess;
+        //         })
+        //     .then((response) => response.json())
+        //     .then((data) => dispatch({ type: ActionTypes.GET_MEDICINESDATA, payload: data }))
+        //     .catch((error) => dispatch(errorMedicines(error.message)))
+        // }, 2000)
 
     } catch (error) {
         dispatch(errorMedicines(error.message))
@@ -36,15 +38,19 @@ export const getMedicines = () => (dispatch) => {
 
 }
 
-export const addMedicines = (data) => (dispatch) => {
+export const addMedicines = (data) => async(dispatch) => {
     try {
-        postMedicinesData(data)
-        .then((data) => {
-                    dispatch({ type: ActionTypes.ADD_MEDICINESDATA, payload: data.data })
-                })
-                .catch((error) => {
-                    dispatch(errorMedicines(error.message))
-                });
+        const docRef = await addDoc(collection(db, "medicines"), data);
+        console.log("Document written with ID: ", docRef.id);
+        dispatch({ type: ActionTypes.ADD_MEDICINESDATA, payload: { id: docRef.id, ...data } })
+
+        // postMedicinesData(data)
+        // .then((data) => {
+        //             dispatch({ type: ActionTypes.ADD_MEDICINESDATA, payload: data.data })
+        //         })
+        //         .catch((error) => {
+        //             dispatch(errorMedicines(error.message))
+        //         });
         // fetch(baseUrl + 'medicines', {
         //     method: 'POST',
         //     headers: {
@@ -79,12 +85,12 @@ export const addMedicines = (data) => (dispatch) => {
 
 export const deleteMedicines = (id) => (dispatch) => {
     console.log(id);
-    try{
+    try {
         deleteMedicinesData(id)
-        .then(dispatch({ type: ActionTypes.DELETE_MEDICINESDATA, payload: id }))
-        .catch((error) => {
-            dispatch(errorMedicines(error.message))
-        });
+            .then(dispatch({ type: ActionTypes.DELETE_MEDICINESDATA, payload: id }))
+            .catch((error) => {
+                dispatch(errorMedicines(error.message))
+            });
         // fetch(baseUrl + 'medicines/'+ id, {
         //     method: 'DELETE'
         // })
@@ -106,19 +112,19 @@ export const deleteMedicines = (id) => (dispatch) => {
         // .catch((error) => {
         //     dispatch(errorMedicines(error.message))
         // });
-    } catch(error) {
+    } catch (error) {
         dispatch(errorMedicines(error.message))
     }
 }
 
 export const updateMedicines = (data) => (dispatch) => {
     console.log(data);
-    try{
+    try {
         putMedicinesData(data)
-        .then((data) => {dispatch({ type: ActionTypes.UPDATE_MEDICINESDATA, payload: data.data })})
-        .catch((error) => {
-            dispatch(errorMedicines(error.message))
-        });
+            .then((data) => { dispatch({ type: ActionTypes.UPDATE_MEDICINESDATA, payload: data.data }) })
+            .catch((error) => {
+                dispatch(errorMedicines(error.message))
+            });
         // fetch(baseUrl + 'medicines/' + data.id ,{
         //     method: 'PUT',
         //     headers: {
@@ -145,7 +151,7 @@ export const updateMedicines = (data) => (dispatch) => {
         //     dispatch(errorMedicines(error.message))
         // });
     } catch (error) {
-          dispatch(errorMedicines(error.message))
+        dispatch(errorMedicines(error.message))
     }
 
 }
