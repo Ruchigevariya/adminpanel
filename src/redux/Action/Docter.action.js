@@ -6,10 +6,10 @@ import { collection, addDoc } from "firebase/firestore";
 
 export const getDocterdata = () => (dispatch) => {
   try {
-    // dispatch(loadingDocter())
+    dispatch(loadingDocter())
 
-    // setTimeout(function () {
-    //   getDoctersData()
+    setTimeout(function () {
+      getDoctersData()
 
       // .then((data) => dispatch({ type: ActionTypes.GET_DOCTERDATA, payload: data.data }))
       // .catch((error) => dispatch(errorDocter(error.message)));
@@ -31,7 +31,7 @@ export const getDocterdata = () => (dispatch) => {
       //   .then(response => response.json())
       //   .then((data) => dispatch({ type: ActionTypes.GET_DOCTERDATA, payload: data }))
       //   .catch((error) => dispatch(errorDocter(error.message)));
-    // }, 2000)
+    }, 2000)
 
   } catch (error) {
     dispatch(errorDocter(error.message))
