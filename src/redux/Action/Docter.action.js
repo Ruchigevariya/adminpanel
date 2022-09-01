@@ -41,7 +41,7 @@ export const addDocterData = (data) => async(dispatch) => {
   try{
     const docRef = await addDoc(collection(db, "docter"), data);
     console.log("Document written with ID: ", docRef.id);
-    dispatch({type: ActionTypes.ADD_DOCTERDATA, payload: {id:docRef.id, ...data}})
+    dispatch({ type: ActionTypes.ADD_DOCTERDATA, payload: {id:docRef.id, ...data} })
     // postDoctersData(data)
     // .then((data) => {
     //       dispatch({ type: ActionTypes.ADD_DOCTERDATA, payload: data.data })
