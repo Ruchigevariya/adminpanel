@@ -2,19 +2,19 @@ import { deleteMedicinesData, getMedicinesData, postMedicinesData, putMedicinesD
 import { db } from '../../firebase'
 import { baseUrl } from '../../Shares/BaseUrl'
 import * as ActionTypes from '../ActionTypes'
-import { collection, addDoc, getDoc } from "firebase/firestore"; 
+import { collection, addDoc, getDocs } from "firebase/firestore";
 
-export const getMedicines = () => async(dispatch) => {
+export const getMedicines = () => async (dispatch) => {
     try {
 
-        const querySnapshot = await getDoc(collection(db, "medicines"));
+        const querySnapshot = await getDocs(collection(db, "docter"));
         let data = []
         querySnapshot.forEach((doc) => {
-          data.push({id: doc.id, ...doc.data()})
-          console.log(data);
-          dispatch({type: ActionTypes.GET_MEDICINESDATA, payload : data})
+            data.push({ id: doc.id, ...doc.data() })
+            console.log(data);
+            dispatch({ type: ActionTypes.GET_MEDICINESDATA, payload: data })
         });
-        
+
         // dispatch(loadingMedicines())
 
         // setTimeout(function () {
@@ -47,7 +47,7 @@ export const getMedicines = () => async(dispatch) => {
 
 }
 
-export const addMedicines = (data) => async(dispatch) => {
+export const addMedicines = (data) => async (dispatch) => {
     try {
         const docRef = await addDoc(collection(db, "medicines"), data);
         console.log("Document written with ID: ", docRef.id);
