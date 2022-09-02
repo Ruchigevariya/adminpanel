@@ -2,35 +2,40 @@ import { deleteDoctersData, getDoctersData, postDoctersData, putDoctersData } fr
 import { db } from '../../firebase';
 import { baseUrl } from '../../Shares/BaseUrl';
 import * as ActionTypes from '../ActionTypes'
-import { collection, addDoc } from "firebase/firestore"; 
+import { collection, addDoc, getDocs } from "firebase/firestore";
 
-export const getDocterdata = () => (dispatch) => {
+export const getDocterdata = () => async(dispatch) => {
   try {
+
+    const querySnapshot = await getDocs(collection(db, "users"));
+    querySnapshot.forEach((doc) => {
+      console.log(`${doc.id} => ${doc.data()}`);
+    });
     // dispatch(loadingDocter())
 
     // setTimeout(function () {
     //   getDoctersData()
 
-      // .then((data) => dispatch({ type: ActionTypes.GET_DOCTERDATA, payload: data.data }))
-      // .catch((error) => dispatch(errorDocter(error.message)));
+    // .then((data) => dispatch({ type: ActionTypes.GET_DOCTERDATA, payload: data.data }))
+    // .catch((error) => dispatch(errorDocter(error.message)));
 
-      // fetch(baseUrl + 'docter')
-      //   .then(response => {
-      //     if (response.ok) {
-      //       return response;
-      //     } else {
-      //       var error = new Error('Error ' + response.status + ': ' + response.statusText);
-      //       error.response = response;
-      //       throw error;
-      //     }
-      //   },
-      //     error => {
-      //       var errmess = new Error(error.message);
-      //       throw errmess;
-      //     })
-      //   .then(response => response.json())
-      //   .then((data) => dispatch({ type: ActionTypes.GET_DOCTERDATA, payload: data }))
-      //   .catch((error) => dispatch(errorDocter(error.message)));
+    // fetch(baseUrl + 'docter')
+    //   .then(response => {
+    //     if (response.ok) {
+    //       return response;
+    //     } else {
+    //       var error = new Error('Error ' + response.status + ': ' + response.statusText);
+    //       error.response = response;
+    //       throw error;
+    //     }
+    //   },
+    //     error => {
+    //       var errmess = new Error(error.message);
+    //       throw errmess;
+    //     })
+    //   .then(response => response.json())
+    //   .then((data) => dispatch({ type: ActionTypes.GET_DOCTERDATA, payload: data }))
+    //   .catch((error) => dispatch(errorDocter(error.message)));
     // }, 2000)
 
   } catch (error) {
@@ -38,12 +43,12 @@ export const getDocterdata = () => (dispatch) => {
   }
 }
 
-export const addDocterData = (data) => async(dispatch) => {
-  try{
+export const addDocterData = (data) => async (dispatch) => {
+  try {
     const docRef = await addDoc(collection(db, "docter"), data);
     console.log("Document written with ID: ", docRef.id);
-    dispatch({ type: ActionTypes.ADD_DOCTERDATA, payload: {id:docRef.id, ...data} })
-    
+    dispatch({ type: ActionTypes.ADD_DOCTERDATA, payload: { id: docRef.id, ...data } })
+
     // postDoctersData(data)
     // .then((data) => {
     //       dispatch({ type: ActionTypes.ADD_DOCTERDATA, payload: data.data })
@@ -78,20 +83,20 @@ export const addDocterData = (data) => async(dispatch) => {
     //   .catch((error) => {
     //     dispatch(errorDocter(error.message))
     //   });
-  } catch ( error) {
-      dispatch(errorDocter(error.message))
+  } catch (error) {
+    dispatch(errorDocter(error.message))
   }
- 
+
 }
 
 export const deleteDocterData = (id) => (dispatch) => {
   console.log(id);
-  try{
+  try {
     deleteDoctersData(id)
-    .then(dispatch({ type: ActionTypes.DELETE_DOCTERDATA, payload: id }))
-    .catch((error) => {
-      dispatch(errorDocter(error.message))
-    });
+      .then(dispatch({ type: ActionTypes.DELETE_DOCTERDATA, payload: id }))
+      .catch((error) => {
+        dispatch(errorDocter(error.message))
+      });
     // fetch(baseUrl + 'docter' + id , {
     //   method: 'DELETE'
     // })
@@ -120,14 +125,14 @@ export const deleteDocterData = (id) => (dispatch) => {
 
 export const updateDocterData = (data) => (dispatch) => {
   console.log(data);
-  try{
-  putDoctersData(data)
-  .then((data) => {
-      dispatch({ type: ActionTypes.UPDATE_DOCTERDATA, payload: data.data })
-    })
-    .catch((error) => {
-      dispatch(errorDocter(error.message))
-    });
+  try {
+    putDoctersData(data)
+      .then((data) => {
+        dispatch({ type: ActionTypes.UPDATE_DOCTERDATA, payload: data.data })
+      })
+      .catch((error) => {
+        dispatch(errorDocter(error.message))
+      });
     // fetch(baseUrl + 'docter/' + data.id , {
     //   method: 'PuT', 
     //   headers: {
@@ -155,7 +160,7 @@ export const updateDocterData = (data) => (dispatch) => {
     // .catch((error) => {
     //   dispatch(errorDocter(error.message))
     // });
-  } catch(error) {
+  } catch (error) {
     dispatch(errorDocter(error.message))
   }
 }
