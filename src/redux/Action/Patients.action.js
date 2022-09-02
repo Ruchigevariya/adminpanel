@@ -2,10 +2,19 @@ import { deletePatientsData, getPatientsData, postPatientsData, putPatientsData 
 import { db } from '../../firebase'
 import { baseUrl } from '../../Shares/BaseUrl'
 import * as ActionTypes from '../ActionTypes'
-import { collection, addDoc } from "firebase/firestore"; 
+import { collection, addDoc, getDocs } from "firebase/firestore"; 
 
-export const getPatients = () => (dispatch) => {
+export const getPatients = () => async(dispatch) => {
     try {
+
+        const querySnapshot = await getDocs(collection(db, "patients"));
+        let data = []
+        querySnapshot.forEach((doc) => {
+          data.push({id: doc.id, ...doc.data()})
+          console.log(data);
+          dispatch({type: ActionTypes.GET_PATIENTSDATA, payload : data})
+        });
+
         // dispatch(loadingPatients())
 
         // setTimeout(function () {

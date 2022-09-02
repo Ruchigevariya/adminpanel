@@ -7,9 +7,12 @@ import { collection, addDoc, getDocs } from "firebase/firestore";
 export const getDocterdata = () => async(dispatch) => {
   try {
 
-    const querySnapshot = await getDocs(collection(db, "users"));
+    const querySnapshot = await getDocs(collection(db, "docter"));
+    let data = []
     querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data()}`);
+      data.push({id: doc.id, ...doc.data()})
+      console.log(data);
+      dispatch({type: ActionTypes.GET_DOCTERDATA, payload : data})
     });
     // dispatch(loadingDocter())
 
