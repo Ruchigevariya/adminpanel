@@ -61,6 +61,7 @@ function Doctors(props) {
         // }
 
         handleClose()
+        formikObj.resetForm()
         loadData()
     }
 

@@ -63,6 +63,7 @@ function Medicines(props) {
     // }
 
     handleClose()
+    formikObj.resetForm();
     loadData()
   }
 
