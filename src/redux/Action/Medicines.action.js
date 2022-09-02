@@ -7,7 +7,7 @@ import { collection, addDoc, getDocs } from "firebase/firestore";
 export const getMedicines = () => async(dispatch) => {
     try {
 
-        const querySnapshot = await getDocs(collection(db, "docter"));
+        const querySnapshot = await getDocs(collection(db, "medicines"));
         let data = []
         querySnapshot.forEach((doc) => {
             data.push({ id: doc.id, ...doc.data() })
