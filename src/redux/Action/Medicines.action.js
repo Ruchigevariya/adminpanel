@@ -4,7 +4,7 @@ import { baseUrl } from '../../Shares/BaseUrl'
 import * as ActionTypes from '../ActionTypes'
 import { collection, addDoc, getDocs } from "firebase/firestore";
 
-export const getMedicines = () => async (dispatch) => {
+export const getMedicines = () => async(dispatch) => {
     try {
 
         const querySnapshot = await getDocs(collection(db, "docter"));
