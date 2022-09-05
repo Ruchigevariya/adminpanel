@@ -2,13 +2,15 @@ import { deleteMedicinesData, getMedicinesData, postMedicinesData, putMedicinesD
 import { db } from '../../firebase'
 import { baseUrl } from '../../Shares/BaseUrl'
 import * as ActionTypes from '../ActionTypes'
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc } from "firebase/firestore";
 
-export const getMedicines = () => async(dispatch) => {
+export const getMedicines = () => async (dispatch) => {
     try {
 
         const querySnapshot = await getDocs(collection(db, "medicines"));
+
         let data = []
+
         querySnapshot.forEach((doc) => {
             data.push({ id: doc.id, ...doc.data() })
             console.log(data);
@@ -92,14 +94,17 @@ export const addMedicines = (data) => async (dispatch) => {
     }
 }
 
-export const deleteMedicines = (id) => (dispatch) => {
+export const deleteMedicines = (id) => async(dispatch) => {
     console.log(id);
     try {
-        deleteMedicinesData(id)
-            .then(dispatch({ type: ActionTypes.DELETE_MEDICINESDATA, payload: id }))
-            .catch((error) => {
-                dispatch(errorMedicines(error.message))
-            });
+        await deleteDoc(doc(db, "medicines", id));
+        dispatch({type: ActionTypes.DELETE_MEDICINESDATA, payload: id})
+
+        // deleteMedicinesData(id)
+        //     .then(dispatch({ type: ActionTypes.DELETE_MEDICINESDATA, payload: id }))
+        //     .catch((error) => {
+        //         dispatch(errorMedicines(error.message))
+        //     });
         // fetch(baseUrl + 'medicines/'+ id, {
         //     method: 'DELETE'
         // })
@@ -126,14 +131,24 @@ export const deleteMedicines = (id) => (dispatch) => {
     }
 }
 
-export const updateMedicines = (data) => (dispatch) => {
+export const updateMedicines = (data) => async(dispatch) => {
     console.log(data);
     try {
-        putMedicinesData(data)
-            .then((data) => { dispatch({ type: ActionTypes.UPDATE_MEDICINESDATA, payload: data.data }) })
-            .catch((error) => {
-                dispatch(errorMedicines(error.message))
-            });
+        const medicinesRef = doc(db, "medicines", data.id);
+
+        // Set the "capital" field of the city 'DC'
+        await updateDoc(medicinesRef, {
+            name: data.name,
+            price: data.price,
+            quantity: data.quantity,
+            expiry: data.expiry
+        });
+        dispatch({type: ActionTypes.UPDATE_MEDICINESDATA, payload: data})
+        // putMedicinesData(data)
+        //     .then((data) => { dispatch({ type: ActionTypes.UPDATE_MEDICINESDATA, payload: data.data }) })
+        //     .catch((error) => {
+        //         dispatch(errorMedicines(error.message))
+        //     });
         // fetch(baseUrl + 'medicines/' + data.id ,{
         //     method: 'PUT',
         //     headers: {

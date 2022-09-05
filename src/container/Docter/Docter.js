@@ -128,6 +128,7 @@ function Doctors(props) {
     }
 
     const handleEdit = (params) => {
+        console.log(params);
         handleClickOpen()
 
         formikObj.setValues(params.row)
@@ -293,7 +294,7 @@ function Doctors(props) {
                                             />
                                             {errors.email && touched.email ? <p>{errors.email}</p> : ''}
                                             <TextField
-                                                value={values.specicontact}
+                                                value={values.contact}
                                                 margin="dense"
                                                 name="contact"
                                                 label="Doctor contact"

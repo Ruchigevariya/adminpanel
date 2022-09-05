@@ -2,17 +2,17 @@ import { deletePatientsData, getPatientsData, postPatientsData, putPatientsData 
 import { db } from '../../firebase'
 import { baseUrl } from '../../Shares/BaseUrl'
 import * as ActionTypes from '../ActionTypes'
-import { collection, addDoc, getDocs } from "firebase/firestore"; 
+import { collection, addDoc, getDocs,  doc, deleteDoc, updateDoc } from "firebase/firestore";
 
-export const getPatients = () => async(dispatch) => {
+export const getPatients = () => async (dispatch) => {
     try {
 
         const querySnapshot = await getDocs(collection(db, "patients"));
         let data = []
         querySnapshot.forEach((doc) => {
-          data.push({id: doc.id, ...doc.data()})
-          console.log(data);
-          dispatch({type: ActionTypes.GET_PATIENTSDATA, payload : data})
+            data.push({ id: doc.id, ...doc.data() })
+            console.log(data);
+            dispatch({ type: ActionTypes.GET_PATIENTSDATA, payload: data })
         });
 
         // dispatch(loadingPatients())
@@ -21,23 +21,23 @@ export const getPatients = () => async(dispatch) => {
         //     getPatientsData()
         //         .then((data) => dispatch(({ type: ActionTypes.GET_PATIENTSDATA, payload: data.data })))
         //         .catch(error => dispatch(errorPatients(error.message)));
-            // fetch(baseUrl + 'patients')
-            //     .then(response => {
-            //         if (response.ok) {
-            //             return response;
-            //         } else {
-            //             var error = new Error('Error ' + response.status + ': ' + response.statusText);
-            //             error.response = response;
-            //             throw error;
-            //         }
-            //     },
-            //         error => {
-            //             var errmess = new Error(error.message);
-            //             throw errmess;
-            //         })
-            //     .then(response => response.json())
-            //     .then((data) => dispatch(({ type: ActionTypes.GET_PATIENTSDATA, payload: data })))
-            //     .catch(error => dispatch(errorPatients(error.message)));
+        // fetch(baseUrl + 'patients')
+        //     .then(response => {
+        //         if (response.ok) {
+        //             return response;
+        //         } else {
+        //             var error = new Error('Error ' + response.status + ': ' + response.statusText);
+        //             error.response = response;
+        //             throw error;
+        //         }
+        //     },
+        //         error => {
+        //             var errmess = new Error(error.message);
+        //             throw errmess;
+        //         })
+        //     .then(response => response.json())
+        //     .then((data) => dispatch(({ type: ActionTypes.GET_PATIENTSDATA, payload: data })))
+        //     .catch(error => dispatch(errorPatients(error.message)));
         // }, 2000)
 
     } catch (error) {
@@ -45,7 +45,7 @@ export const getPatients = () => async(dispatch) => {
     }
 }
 
-export const addpatients = (data) => async(dispatch) => {
+export const addpatients = (data) => async (dispatch) => {
     try {
         const docRef = await addDoc(collection(db, "patients"), data);
         console.log("Document written with ID: ", docRef.id);
@@ -90,14 +90,16 @@ export const addpatients = (data) => async(dispatch) => {
     }
 }
 
-export const deletePatientsdata = (id) => (dispatch) => {
+export const deletePatientsdata = (id) => async(dispatch) => {
     console.log(id);
     try {
-        deletePatientsData(id)
-            .then(dispatch({ type: ActionTypes.DELETE_PATIENTSDATA, payload: id }))
-            .catch((error) => {
-                dispatch(errorPatients(error.message))
-            });
+        await deleteDoc(doc(db, "patients", id));
+        dispatch({type: ActionTypes.DELETE_PATIENTSDATA, payload: id})
+        // deletePatientsData(id)
+        //     .then(dispatch({ type: ActionTypes.DELETE_PATIENTSDATA, payload: id }))
+        //     .catch((error) => {
+        //         dispatch(errorPatients(error.message))
+        //     });
         // fetch(baseUrl + 'patients/' + id ,{
         //     method: 'DELETE'
         // })
@@ -124,16 +126,27 @@ export const deletePatientsdata = (id) => (dispatch) => {
     }
 }
 
-export const updatePatientsData = (data) => (dispatch) => {
+export const updatePatientsData = (data) => async(dispatch) => {
     console.log(data);
     try {
-        putPatientsData(data)
-            .then((data) => {
-                dispatch({ type: ActionTypes.UPDATE_PATIENTSDATA, payload: data.data })
-            })
-            .catch((error) => {
-                dispatch(errorPatients(error.message))
-            });
+        const patientsRef = doc(db, "patients", data.id);
+
+        // Set the "capital" field of the city 'DC'
+        await updateDoc(patientsRef, {
+            name: data.name,
+            age: data.age,
+            birthDate: data.birthDate,
+            contact: data.contact,
+            city: data.city
+        });
+        dispatch({type: ActionTypes.UPDATE_PATIENTSDATA, payload: data})
+        // putPatientsData(data)
+        //     .then((data) => {
+        //         dispatch({ type: ActionTypes.UPDATE_PATIENTSDATA, payload: data.data })
+        //     })
+        //     .catch((error) => {
+        //         dispatch(errorPatients(error.message))
+        //     });
         // fetch(baseUrl + 'patients/' + data.id , {
         //     method: 'PUT',
         //     headers: {
