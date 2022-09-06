@@ -91,6 +91,7 @@ function Doctors(props) {
         lastname: yup.string().required("Please enter your lastname."),
         email: yup.string().required("Please enter email id.").email("please enter valid email id."),
         contact: yup.string().required("Please enter your contact number."),
+        profile_img: yup.mixed().required("Please select any image.")
     });
 
     const formikObj = useFormik({
@@ -99,6 +100,7 @@ function Doctors(props) {
             lastname: '',
             email: '',
             contact: '',
+            profile_img: ''
         },
         validationSchema: schema,
         onSubmit: values => {
@@ -110,7 +112,7 @@ function Doctors(props) {
         },
     });
 
-    const { handleChange, handleSubmit, errors, handleBlur, touched, values } = formikObj;
+    const { handleChange, handleSubmit, errors, handleBlur, touched, values, setFieldValue } = formikObj;
 
     const handleDelete = () => {
         // let localData = JSON.parse(localStorage.getItem("doctor"))
@@ -305,6 +307,13 @@ function Doctors(props) {
                                                 onBlur={handleBlur}
                                             />
                                             {errors.contact && touched.contact ? <p>{errors.contact}</p> : ''}
+                                            <input
+                                                type="file"
+                                                name="profile_img"
+                                                onChange={(e) => setFieldValue("profile_img" , e.target.files[0])}
+                                             />
+                                            {errors.profile_img && touched.profile_img ? <p>{errors.profile_img}</p> : ''}
+                                            
                                             <DialogActions>
                                                 <Button onClick={handleClose}>Cancel</Button>
                                                 {

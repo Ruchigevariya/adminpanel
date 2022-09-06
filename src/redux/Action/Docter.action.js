@@ -1,8 +1,9 @@
 import { deleteDoctersData, getDoctersData, postDoctersData, putDoctersData } from '../../Common/Apis/Docter.api';
-import { db } from '../../firebase';
+import { db, storage } from '../../firebase';
 import { baseUrl } from '../../Shares/BaseUrl';
 import * as ActionTypes from '../ActionTypes'
 import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 export const getDocterdata = () => async (dispatch) => {
   try {
@@ -48,9 +49,28 @@ export const getDocterdata = () => async (dispatch) => {
 
 export const addDocterData = (data) => async (dispatch) => {
   try {
-    const docRef = await addDoc(collection(db, "docter"), data);
-    console.log("Document written with ID: ", docRef.id);
-    dispatch({ type: ActionTypes.ADD_DOCTERDATA, payload: { id: docRef.id, ...data } })
+    const docterRef = ref(storage, 'docter/' + data.profile_img.name);
+    // console.log(docterRef);
+    uploadBytes(docterRef, data.profile_img)
+
+      .then((snapshot) => {
+        console.log('Uploaded a blob or file!');
+
+        getDownloadURL(ref(storage, snapshot.ref))
+          .then(async (url) => {
+            const docRef = await addDoc(collection(db, "docter"), {
+              ...data,
+              profile_img:url
+            });
+            dispatch({ type: ActionTypes.ADD_DOCTERDATA, payload: {
+              id: docRef.id,
+              ...data,
+              profile_img:url
+
+              } })
+          })
+      });
+    // console.log("Document written with ID: ", docRef.id);
 
     // postDoctersData(data)
     // .then((data) => {
@@ -128,7 +148,7 @@ export const deleteDocterData = (id) => async (dispatch) => {
   }
 }
 
-export const updateDocterData = (data) => async(dispatch) => {
+export const updateDocterData = (data) => async (dispatch) => {
   console.log(data);
   try {
 
@@ -142,7 +162,7 @@ export const updateDocterData = (data) => async(dispatch) => {
       contact: data.contact
     });
 
-    dispatch({type: ActionTypes.UPDATE_DOCTERDATA, payload: data})
+    dispatch({ type: ActionTypes.UPDATE_DOCTERDATA, payload: data })
     // putDoctersData(data)
     //   .then((data) => {
     //     dispatch({ type: ActionTypes.UPDATE_DOCTERDATA, payload: data.data })
