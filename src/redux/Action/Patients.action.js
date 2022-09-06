@@ -1,8 +1,9 @@
 import { deletePatientsData, getPatientsData, postPatientsData, putPatientsData } from '../../Common/Apis/Patients.api'
-import { db } from '../../firebase'
+import { db, storage } from '../../firebase'
 import { baseUrl } from '../../Shares/BaseUrl'
 import * as ActionTypes from '../ActionTypes'
-import { collection, addDoc, getDocs,  doc, deleteDoc, updateDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 export const getPatients = () => async (dispatch) => {
     try {
@@ -47,9 +48,28 @@ export const getPatients = () => async (dispatch) => {
 
 export const addpatients = (data) => async (dispatch) => {
     try {
-        const docRef = await addDoc(collection(db, "patients"), data);
-        console.log("Document written with ID: ", docRef.id);
-        dispatch({ type: ActionTypes.ADD_PATIENTSDATA, payload: { id: docRef.id, ...data } })
+        const patientsRef = ref(storage, 'patients/' + data.patients_img.name);
+        // console.log(patientsRef);
+        uploadBytes(patientsRef, data.patients_img)
+            .then((snapshot) => {
+                console.log('Uploaded a blob or file!');
+
+                getDownloadURL(ref(storage, snapshot.ref))
+                    .then(async (url) => {
+                        const docRef = await addDoc(collection(db, "patients"),{
+                            ...data,
+                            patients_img:url
+                        });
+                        dispatch({ type: ActionTypes.ADD_PATIENTSDATA, payload: { 
+                            id: docRef.id,
+                             ...data,
+                            patients_img:url
+
+                             } })
+
+                    });
+            });
+        // console.log("Document written with ID: ", docRef.id);
 
         // postPatientsData(data)
         // .then((data) => {
@@ -90,11 +110,11 @@ export const addpatients = (data) => async (dispatch) => {
     }
 }
 
-export const deletePatientsdata = (id) => async(dispatch) => {
+export const deletePatientsdata = (id) => async (dispatch) => {
     console.log(id);
     try {
         await deleteDoc(doc(db, "patients", id));
-        dispatch({type: ActionTypes.DELETE_PATIENTSDATA, payload: id})
+        dispatch({ type: ActionTypes.DELETE_PATIENTSDATA, payload: id })
         // deletePatientsData(id)
         //     .then(dispatch({ type: ActionTypes.DELETE_PATIENTSDATA, payload: id }))
         //     .catch((error) => {
@@ -126,7 +146,7 @@ export const deletePatientsdata = (id) => async(dispatch) => {
     }
 }
 
-export const updatePatientsData = (data) => async(dispatch) => {
+export const updatePatientsData = (data) => async (dispatch) => {
     console.log(data);
     try {
         const patientsRef = doc(db, "patients", data.id);
@@ -139,7 +159,7 @@ export const updatePatientsData = (data) => async(dispatch) => {
             contact: data.contact,
             city: data.city
         });
-        dispatch({type: ActionTypes.UPDATE_PATIENTSDATA, payload: data})
+        dispatch({ type: ActionTypes.UPDATE_PATIENTSDATA, payload: data })
         // putPatientsData(data)
         //     .then((data) => {
         //         dispatch({ type: ActionTypes.UPDATE_PATIENTSDATA, payload: data.data })
