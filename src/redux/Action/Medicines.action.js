@@ -70,8 +70,8 @@ export const addMedicines = (data) => async (dispatch) => {
                             ...data,
                             medicines_img:url
 
-                             } })
-                             console.log(url);
+                        } })
+                        console.log(url);
                     });
             });
 

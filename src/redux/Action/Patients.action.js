@@ -65,7 +65,9 @@ export const addpatients = (data) => async (dispatch) => {
                              ...data,
                             patients_img:url
 
-                             } })
+                        } })
+
+                        console.log(url);
 
                     });
             });
