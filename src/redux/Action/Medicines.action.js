@@ -53,17 +53,25 @@ export const getMedicines = () => async (dispatch) => {
 export const addMedicines = (data) => async (dispatch) => {
     try {
         const medicinesRef = ref(storage, 'medicines/' + data.medicines_img.name);
-        console.log(medicinesRef);
+        // console.log(medicinesRef);
 
         uploadBytes(medicinesRef, data.medicines_img)
             .then((snapshot) => {
                 console.log('Uploaded a blob or file!');
 
-                getDownloadURL(ref(storage, 'images/stars.jpg'))
-                    .then(async(url) => {
-                        const docRef = await addDoc(collection(db, "medicines"), data);
-                        dispatch({ type: ActionTypes.ADD_MEDICINESDATA, payload: { id: docRef.id, ...data } })
+                getDownloadURL(ref(storage, snapshot.ref))
+                    .then(async (url) => {
+                        const docRef = await addDoc(collection(db, "medicines"), {
+                            ...data,
+                            medicines_img:url
+                        });
+                        dispatch({ type: ActionTypes.ADD_MEDICINESDATA, payload: {
+                            id: docRef.id,
+                            ...data,
+                            medicines_img:url
 
+                             } })
+                             console.log(url);
                     });
             });
 
