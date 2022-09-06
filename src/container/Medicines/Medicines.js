@@ -96,6 +96,7 @@ function Medicines(props) {
     price: yup.number().required("please enter price").positive().integer(),
     quantity: yup.string().required("please enter quantity"),
     expiry: yup.string().required("please enter expiry"),
+    medicines_img: yup.mixed().required("please select any image")
   });
 
   const formikObj = useFormik({
@@ -103,7 +104,8 @@ function Medicines(props) {
       name: '',
       price: '',
       quantity: '',
-      expiry: ''
+      expiry: '',
+      medicines_img: ''
     },
     validationSchema: schema,
     onSubmit: values => {
@@ -116,7 +118,7 @@ function Medicines(props) {
     enableReinitialize: true,
   });
 
-  const { handleChange, errors, handleSubmit, handleBlur, touched, values } = formikObj;
+  const { handleChange, errors, handleSubmit, handleBlur, touched, values, setFieldValue } = formikObj;
   // console.log(errors);
 
   const handleDelete = () => {
@@ -312,6 +314,13 @@ function Medicines(props) {
                   onBlur={handleBlur}
                 />
                 {errors.expiry && touched.expiry ? <p>{errors.expiry}</p> : ''}
+                <input 
+                  type="file"
+                  name="medicines_img"
+                  onChange={(e) => setFieldValue("medicines_img" , e.target.files[0])}
+                />
+                {errors.medicines_img && touched.medicines_img ? <p>{errors.medicines_img}</p> : ''}
+
                 <DialogActions>
                   <Button onClick={handleClose}>Cancel</Button>
                   {
