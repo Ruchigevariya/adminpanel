@@ -68,6 +68,7 @@ export const addDocterData = (data) => async (dispatch) => {
               profile_img:url
 
               } })
+              console.log(url);
           })
       });
     // console.log("Document written with ID: ", docRef.id);
