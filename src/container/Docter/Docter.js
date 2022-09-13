@@ -114,7 +114,8 @@ function Doctors(props) {
 
     const { handleChange, handleSubmit, errors, handleBlur, touched, values, setFieldValue } = formikObj;
 
-    const handleDelete = () => {
+    const handleDelete = (id) => {
+        console.log(id);
         // let localData = JSON.parse(localStorage.getItem("doctor"))
 
         // let fData = localData.filter((l) => l.id !== didid)
@@ -144,6 +145,14 @@ function Doctors(props) {
         { field: 'lastname', headerName: 'Last name', width: 130 },
         { field: 'email', headerName: 'Email id', width: 130 },
         { field: 'contact', headerName: 'Contact', width: 130 },
+        { 
+            field: 'profile_img', 
+            headerName: 'Profile_img', 
+            width: 130,
+            renderCell: (params) => (
+                <img src={params.row.profile_img} width={50} height={50} /> 
+            ) 
+        },
         {
             field: 'action',
             headerName: 'Action',
@@ -153,7 +162,7 @@ function Doctors(props) {
                     <IconButton aria-label="edit" onClick={() => handleEdit(params)}>
                         <EditIcon />
                     </IconButton>
-                    <IconButton aria-label="delete" onClick={() => { handleDoClickDopen(); setDidid(params.id) }}>
+                    <IconButton aria-label="delete" onClick={() => { handleDoClickDopen(); setDidid(params) }}>
                         <DeleteIcon />
                     </IconButton>
                 </>
