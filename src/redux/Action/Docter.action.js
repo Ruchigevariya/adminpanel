@@ -121,12 +121,12 @@ export const addDocterData = (data) => async (dispatch) => {
 
 export const deleteDocterData = (data) => async (dispatch) => {
   console.log(data);
-
+  
   try {
     const docterRef = ref(storage, 'docter/' + data.fileName);
 
     deleteObject(docterRef)
-      .then(async () => {
+      .then(async() => {
         await deleteDoc(doc(db, "docter", data.id));
         dispatch({ type: ActionTypes.DELETE_DOCTERDATA, payload: data.id })
       })
