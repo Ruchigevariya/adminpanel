@@ -150,6 +150,14 @@ function Patients(props) {
         { field: 'birthDate', headerName: 'birthDate', width: 170 },
         { field: 'contact', headerName: 'contact', width: 170 },
         { field: 'city', headerName: 'city', width: 130 },
+        { 
+            field: 'patients_img', 
+            headerName: 'patients_img', 
+            width: 130,
+            renderCell: (params) => (
+                <img src={params.row.patients_img} width={50} height={50} /> 
+            ) 
+        },
         {
             field: 'Action',
             headerName: 'action',
@@ -159,7 +167,7 @@ function Patients(props) {
                     <IconButton aria-label="edit" onClick={() => handleEdit(params)}>
                         <ModeEditOutlineIcon />
                     </IconButton>
-                    <IconButton aria-label="delete" onClick={() => { handledoClickOpen(); setDidId(params.id) }}>
+                    <IconButton aria-label="delete" onClick={() => { handledoClickOpen(); setDidId(params.row) }}>
                         <DeleteIcon />
                     </IconButton>
                 </>

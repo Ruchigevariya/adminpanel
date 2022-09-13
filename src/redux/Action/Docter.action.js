@@ -122,7 +122,7 @@ export const addDocterData = (data) => async (dispatch) => {
 export const deleteDocterData = (data) => async (dispatch) => {
   console.log(data);
   try {
-    const docterRef = ref(storage, 'docter/' + data.row.fileName);
+    const docterRef = ref(storage, 'docter/' + data.fileName);
 
     deleteObject(docterRef)
       .then(async() => {

@@ -3,7 +3,7 @@ import { db, storage } from '../../firebase'
 import { baseUrl } from '../../Shares/BaseUrl'
 import * as ActionTypes from '../ActionTypes'
 import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { deleteObject, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 export const getMedicines = () => async (dispatch) => {
     try {
@@ -52,7 +52,10 @@ export const getMedicines = () => async (dispatch) => {
 
 export const addMedicines = (data) => async (dispatch) => {
     try {
-        const medicinesRef = ref(storage, 'medicines/' + data.medicines_img.name);
+        const randomNum = Math.floor(Math.random() * 1000000).toString()
+        console.log(randomNum);
+
+        const medicinesRef = ref(storage, 'medicines/' + randomNum);
         // console.log(medicinesRef);
 
         uploadBytes(medicinesRef, data.medicines_img)
@@ -63,14 +66,17 @@ export const addMedicines = (data) => async (dispatch) => {
                     .then(async (url) => {
                         const docRef = await addDoc(collection(db, "medicines"), {
                             ...data,
-                            medicines_img:url
+                            medicines_img: url,
+                            fileName: randomNum
                         });
-                        dispatch({ type: ActionTypes.ADD_MEDICINESDATA, payload: {
-                            id: docRef.id,
-                            ...data,
-                            medicines_img:url
+                        dispatch({
+                            type: ActionTypes.ADD_MEDICINESDATA, payload: {
+                                id: docRef.id,
+                                ...data,
+                                medicines_img: url
 
-                        } })
+                            }
+                        })
                         console.log(url);
                     });
             });
@@ -117,11 +123,22 @@ export const addMedicines = (data) => async (dispatch) => {
     }
 }
 
-export const deleteMedicines = (id) => async (dispatch) => {
-    console.log(id);
+export const deleteMedicines = (data) => async (dispatch) => {
+    console.log(data);
+
     try {
-        await deleteDoc(doc(db, "medicines", id));
-        dispatch({ type: ActionTypes.DELETE_MEDICINESDATA, payload: id })
+        const medicinesRef = ref(storage, 'medicines/' + data.fileName);
+
+        deleteObject(medicinesRef)
+            .then(async() => {
+                await deleteDoc(doc(db, "medicines", data.id));
+                dispatch({ type: ActionTypes.DELETE_MEDICINESDATA, payload: data.id })
+            })
+            .catch((error) => {
+                dispatch(errorMedicines(error.message))
+            });
+
+
 
         // deleteMedicinesData(id)
         //     .then(dispatch({ type: ActionTypes.DELETE_MEDICINESDATA, payload: id }))

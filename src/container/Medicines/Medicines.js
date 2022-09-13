@@ -152,6 +152,14 @@ function Medicines(props) {
     { field: 'price', headerName: 'Price', width: 130 },
     { field: 'quantity', headerName: 'Quantity', width: 130 },
     { field: 'expiry', headerName: 'Expiry', width: 130 },
+    { 
+      field: 'medicines_img', 
+      headerName: 'Medicines_img', 
+      width: 130,
+      renderCell: (params) => (
+        <img src={params.row.medicines_img} width={50} height={50} /> 
+    )  
+    },
     {
       field: 'action',
       headerName: 'Action',
@@ -161,7 +169,7 @@ function Medicines(props) {
           <IconButton aria-label="edit" onClick={() => handleEdit(params)}>
             <ModeEditOutlineIcon />
           </IconButton>
-          <IconButton aria-label="delete" onClick={() => { handledoClickOpen(); setDidId(params.id) }}>
+          <IconButton aria-label="delete" onClick={() => { handledoClickOpen(); setDidId(params.row) }}>
             <DeleteIcon />
           </IconButton>
         </>

@@ -162,7 +162,7 @@ function Doctors(props) {
                     <IconButton aria-label="edit" onClick={() => handleEdit(params)}>
                         <EditIcon />
                     </IconButton>
-                    <IconButton aria-label="delete" onClick={() => { handleDoClickDopen(); setDidid(params) }}>
+                    <IconButton aria-label="delete" onClick={() => { handleDoClickDopen(); setDidid(params.row) }}>
                         <DeleteIcon />
                     </IconButton>
                 </>
