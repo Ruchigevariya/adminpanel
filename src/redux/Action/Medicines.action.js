@@ -130,7 +130,7 @@ export const deleteMedicines = (data) => async (dispatch) => {
         const medicinesRef = ref(storage, 'medicines/' + data.fileName);
 
         deleteObject(medicinesRef)
-            .then(async() => {
+            .then(async () => {
                 await deleteDoc(doc(db, "medicines", data.id));
                 dispatch({ type: ActionTypes.DELETE_MEDICINESDATA, payload: data.id })
             })

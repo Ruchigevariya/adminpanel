@@ -123,11 +123,10 @@ export const deletePatientsdata = (data) => async (dispatch) => {
     console.log(data);
 
     try {
-
         const patientsRef = ref(storage, 'patients/' + data.fileName);
 
         deleteObject(patientsRef)
-            .then(async() => {
+            .then(async () => {
                 await deleteDoc(doc(db, "patients", data.id));
                 dispatch({ type: ActionTypes.DELETE_PATIENTSDATA, payload: data.id })
             })
