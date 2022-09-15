@@ -176,7 +176,6 @@ export const updateMedicines = (data) => async (dispatch) => {
     try {
         const medicinesRef = doc(db, "medicines", data.id);
 
-        // Set the "capital" field of the city 'DC'
         await updateDoc(medicinesRef, {
             name: data.name,
             price: data.price,
