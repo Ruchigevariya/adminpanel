@@ -70,8 +70,8 @@ export const addDocterData = (data) => async (dispatch) => {
               type: ActionTypes.ADD_DOCTERDATA, payload: {
                 id: docRef.id,
                 ...data,
-                profile_img: url
-
+                profile_img: url,
+                fileName: randomNum
               }
             })
             console.log(url);
