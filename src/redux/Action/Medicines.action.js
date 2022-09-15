@@ -174,13 +174,12 @@ export const deleteMedicines = (data) => async (dispatch) => {
 export const updateMedicines = (data) => async (dispatch) => {
     console.log(data);
 
-    const medicinesRef = doc(db, "medicines", data.id);
-
     try {
 
         const delmedicinesRef = ref(storage, 'medicines/' + data.fileName);
         const randomNum = Math.floor(Math.random() * 1000000).toString()
         const instmedicinesRef = ref(storage, 'medicines/' + randomNum);
+        const medicinesRef = doc(db, "medicines", data.id);
 
         if (typeof data.medicines_img === 'string') {
             // console.log("No change image");
