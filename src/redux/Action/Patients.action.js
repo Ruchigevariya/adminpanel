@@ -170,15 +170,15 @@ export const updatePatientsData = (data) => async (dispatch) => {
 
     try {
 
-        const delpatientsRef = ref(storage, 'patients/' + data.fileName);
-        const randomNum = Math.floor(Math.random() * 1000000).toString()
-        const instpatientsRef = ref(storage, 'patients/' + randomNum);
         const patientsRef = doc(db, "patients", data.id);
 
         if (typeof data.patients_img === 'string') {
             console.log("No change Image.");
         } else {
             console.log("change image.");
+            const delpatientsRef = ref(storage, 'patients/' + data.fileName);
+            const randomNum = Math.floor(Math.random() * 1000000).toString()
+            const instpatientsRef = ref(storage, 'patients/' + randomNum);
 
             deleteObject(delpatientsRef) //1
                 .then(async () => {

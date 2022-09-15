@@ -176,9 +176,6 @@ export const updateMedicines = (data) => async (dispatch) => {
 
     try {
 
-        const delmedicinesRef = ref(storage, 'medicines/' + data.fileName);
-        const randomNum = Math.floor(Math.random() * 1000000).toString()
-        const instmedicinesRef = ref(storage, 'medicines/' + randomNum);
         const medicinesRef = doc(db, "medicines", data.id);
 
         if (typeof data.medicines_img === 'string') {
@@ -186,6 +183,9 @@ export const updateMedicines = (data) => async (dispatch) => {
 
         } else {
             console.log("Change Image");
+            const delmedicinesRef = ref(storage, 'medicines/' + data.fileName);
+            const randomNum = Math.floor(Math.random() * 1000000).toString()
+            const instmedicinesRef = ref(storage, 'medicines/' + randomNum);
 
             deleteObject(delmedicinesRef) //1
                 .then(async () => {
