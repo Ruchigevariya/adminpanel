@@ -153,7 +153,6 @@ export const updatePatientsData = (data) => async (dispatch) => {
     try {
         const patientsRef = doc(db, "patients", data.id);
 
-        // Set the "capital" field of the city 'DC'
         await updateDoc(patientsRef, {
             name: data.name,
             age: data.age,
