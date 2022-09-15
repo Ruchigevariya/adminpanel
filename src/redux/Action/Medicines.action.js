@@ -212,11 +212,6 @@ export const updateMedicines = (data) => async (dispatch) => {
 
         }
 
-
-
-
-
-
         // const medicinesRef = doc(db, "medicines", data.id);
 
         // await updateDoc(medicinesRef, {
