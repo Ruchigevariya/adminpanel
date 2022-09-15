@@ -167,17 +167,59 @@ export const deletePatientsdata = (data) => async (dispatch) => {
 
 export const updatePatientsData = (data) => async (dispatch) => {
     console.log(data);
-    try {
-        const patientsRef = doc(db, "patients", data.id);
 
-        await updateDoc(patientsRef, {
-            name: data.name,
-            age: data.age,
-            birthDate: data.birthDate,
-            contact: data.contact,
-            city: data.city
-        });
-        dispatch({ type: ActionTypes.UPDATE_PATIENTSDATA, payload: data })
+    const delpatientsRef = ref(storage, 'patients/' + data.fileName);
+    const randomNum = Math.floor(Math.random() * 1000000).toString()
+    const instpatientsRef = ref(storage, 'patients/' + randomNum);
+
+    try {
+
+        if (typeof data.patients_img === 'string') {
+            console.log("No change Image.");
+        } else {
+            console.log("change image.");
+
+            deleteObject(delpatientsRef) //1
+                .then(async () => {
+                    uploadBytes(instpatientsRef, data.patients_img) //2
+                        .then((snapshot) => {
+                            // console.log('Uploaded a blob or file!');
+
+                            getDownloadURL(ref(storage, snapshot.ref)) //3
+                                .then(async (url) => {
+                                    // console.log(url);
+                                    const patientsRef = doc(db, "patients", data.id);
+
+                                    await updateDoc(patientsRef, {
+                                        name: data.name,
+                                        age: data.age,
+                                        birthDate: data.birthDate,
+                                        contact: data.contact,
+                                        city: data.city,
+                                        fileName: randomNum,
+                                        patients_img: url
+                                    });
+                                    dispatch({
+                                        type: ActionTypes.UPDATE_PATIENTSDATA, payload: {
+                                            ...data, fileName: randomNum,
+                                            patients_img: url
+                                        }
+                                    })
+                                })
+                        })
+                })
+
+        }
+        // const patientsRef = doc(db, "patients", data.id);
+
+        // await updateDoc(patientsRef, {
+        //     name: data.name,
+        //     age: data.age,
+        //     birthDate: data.birthDate,
+        //     contact: data.contact,
+        //     city: data.city
+        // });
+        // dispatch({ type: ActionTypes.UPDATE_PATIENTSDATA, payload: data })
         // putPatientsData(data)
         //     .then((data) => {
         //         dispatch({ type: ActionTypes.UPDATE_PATIENTSDATA, payload: data.data })

@@ -173,7 +173,6 @@ export const updateDocterData = (data) => async (dispatch) => {
   let randomNum = Math.floor(Math.random() * 1000000).toString()
   const instdocterRef = ref(storage, 'docter/' + randomNum);
 
-
   try {
 
     if (typeof data.profile_img === 'string') {
@@ -188,6 +187,7 @@ export const updateDocterData = (data) => async (dispatch) => {
               getDownloadURL(ref(storage, snapshot.ref)) //3
                 .then(async (url) => {
                   console.log(url);
+
                   const docterRef = doc(db, "docter", data.id);
 
                   await updateDoc(docterRef, {  //4
@@ -198,7 +198,7 @@ export const updateDocterData = (data) => async (dispatch) => {
                     fileName: randomNum,
                     profile_img: url
                   });
-                  dispatch({ type: ActionTypes.UPDATE_DOCTERDATA, payload: {...data, fileName: randomNum,  profile_img: url } }) //5
+                  dispatch({ type: ActionTypes.UPDATE_DOCTERDATA, payload: { ...data, fileName: randomNum, profile_img: url } }) //5
 
                 })
             })
