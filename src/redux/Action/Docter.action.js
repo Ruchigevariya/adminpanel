@@ -121,12 +121,12 @@ export const addDocterData = (data) => async (dispatch) => {
 
 export const deleteDocterData = (data) => async (dispatch) => {
   console.log(data);
-  
+
   try {
     const docterRef = ref(storage, 'docter/' + data.fileName);
 
     deleteObject(docterRef)
-      .then(async() => {
+      .then(async () => {
         await deleteDoc(doc(db, "docter", data.id));
         dispatch({ type: ActionTypes.DELETE_DOCTERDATA, payload: data.id })
       })
@@ -168,18 +168,55 @@ export const deleteDocterData = (data) => async (dispatch) => {
 
 export const updateDocterData = (data) => async (dispatch) => {
   console.log(data);
+
+  const deldocterRef = ref(storage, 'docter/' + data.fileName);
+  let randomNum = Math.floor(Math.random() * 1000000).toString()
+  const instdocterRef = ref(storage, 'docter/' + randomNum);
+
+
   try {
 
-    const docterRef = doc(db, "docter", data.id);
+    if (typeof data.profile_img === 'string') {
+      console.log("No change image");
+    } else {
+      deleteObject(deldocterRef)  //1
+        .then(async () => {
+          uploadBytes(instdocterRef, data.profile_img) //2
 
-    await updateDoc(docterRef, {
-      firstname: data.firstname,
-      lastname: data.lastname,
-      email: data.email,
-      contact: data.contact
-    });
+            .then((snapshot) => {
+              // console.log('Uploaded a blob or file!');
 
-    dispatch({ type: ActionTypes.UPDATE_DOCTERDATA, payload: data })
+              getDownloadURL(ref(storage, snapshot.ref)) //3
+                .then(async (url) => {
+                  console.log(url);
+                  const docterRef = doc(db, "docter", data.id);
+
+                  await updateDoc(docterRef, {  //4
+                    firstname: data.firstname,
+                    lastname: data.lastname,
+                    email: data.email,
+                    contact: data.contact,
+                    fileName: randomNum,
+                    profile_img: url
+                  });
+                  dispatch({ type: ActionTypes.UPDATE_DOCTERDATA, payload: {...data, fileName: randomNum,  profile_img: url } }) //5
+
+                })
+            })
+          console.log("change image");
+        })
+    }
+
+    // const docterRef = doc(db, "docter", data.id);
+
+    // await updateDoc(docterRef, {
+    //   firstname: data.firstname,
+    //   lastname: data.lastname,
+    //   email: data.email,
+    //   contact: data.contact
+    // });
+
+    // dispatch({ type: ActionTypes.UPDATE_DOCTERDATA, payload: data })
     // putDoctersData(data)
     //   .then((data) => {
     //     dispatch({ type: ActionTypes.UPDATE_DOCTERDATA, payload: data.data })
