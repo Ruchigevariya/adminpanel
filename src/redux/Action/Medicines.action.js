@@ -179,8 +179,7 @@ export const updateMedicines = (data) => async (dispatch) => {
         const medicinesRef = doc(db, "medicines", data.id);
 
         if (typeof data.medicines_img === 'string') {
-            // console.log("No change image");
-
+            console.log("No change image");
         } else {
             console.log("Change Image");
             const delmedicinesRef = ref(storage, 'medicines/' + data.fileName);
