@@ -73,8 +73,8 @@ export const addMedicines = (data) => async (dispatch) => {
                             type: ActionTypes.ADD_MEDICINESDATA, payload: {
                                 id: docRef.id,
                                 ...data,
-                                medicines_img: url
-
+                                medicines_img: url,
+                                fileName: randomNum
                             }
                         })
                         console.log(url);

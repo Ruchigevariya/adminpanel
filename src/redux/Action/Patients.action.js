@@ -69,8 +69,8 @@ export const addpatients = (data) => async (dispatch) => {
                             type: ActionTypes.ADD_PATIENTSDATA, payload: {
                                 id: docRef.id,
                                 ...data,
-                                patients_img: url
-
+                                patients_img: url,
+                                fileName: randomNum
                             }
                         })
 
