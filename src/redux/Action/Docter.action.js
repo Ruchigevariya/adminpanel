@@ -185,7 +185,6 @@ export const updateDocterData = (data) => async (dispatch) => {
 
             .then((snapshot) => {
               // console.log('Uploaded a blob or file!');
-
               getDownloadURL(ref(storage, snapshot.ref)) //3
                 .then(async (url) => {
                   console.log(url);

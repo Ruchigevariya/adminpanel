@@ -73,8 +73,8 @@ export const addMedicines = (data) => async (dispatch) => {
                             type: ActionTypes.ADD_MEDICINESDATA, payload: {
                                 id: docRef.id,
                                 ...data,
-                                medicines_img: url
-
+                                medicines_img: url,
+                                fileName: randomNum
                             }
                         })
                         console.log(url);
@@ -173,16 +173,59 @@ export const deleteMedicines = (data) => async (dispatch) => {
 
 export const updateMedicines = (data) => async (dispatch) => {
     console.log(data);
-    try {
-        const medicinesRef = doc(db, "medicines", data.id);
 
-        await updateDoc(medicinesRef, {
-            name: data.name,
-            price: data.price,
-            quantity: data.quantity,
-            expiry: data.expiry
-        });
-        dispatch({ type: ActionTypes.UPDATE_MEDICINESDATA, payload: data })
+    const delmedicinesRef = ref(storage, 'medicines/' + data.fileName);
+    const randomNum = Math.floor(Math.random() * 1000000).toString()
+    const instmedicinesRef = ref(storage, 'medicines/' + randomNum);
+
+    try {
+
+        if (typeof data.medicines_img === 'string') {
+            // console.log("No change image");
+
+        } else {
+            console.log("Change Image");
+
+            deleteObject(delmedicinesRef) //1
+                .then(async () => {
+                    uploadBytes(instmedicinesRef, data.medicines_img) //2
+                        .then((snapshot) => {
+                            // console.log('Uploaded a blob or file!');
+
+                            getDownloadURL(ref(storage, snapshot.ref)) //3
+                                .then(async (url) => {
+                                    // console.log(url);
+                                    const medicinesRef = doc(db, "medicines", data.id);
+
+                                    await updateDoc(medicinesRef, {
+                                        name: data.name,
+                                        price: data.price,
+                                        quantity: data.quantity,
+                                        expiry: data.expiry,
+                                        fileName: randomNum,
+                                        medicines_img: url
+                                    });
+                                    dispatch({ type: ActionTypes.UPDATE_MEDICINESDATA, payload: { ...data, fileName: randomNum, medicines_img: url } })
+                                })
+                        })
+                })
+
+        }
+
+
+
+
+
+
+        // const medicinesRef = doc(db, "medicines", data.id);
+
+        // await updateDoc(medicinesRef, {
+        //     name: data.name,
+        //     price: data.price,
+        //     quantity: data.quantity,
+        //     expiry: data.expiry
+        // });
+        // dispatch({ type: ActionTypes.UPDATE_MEDICINESDATA, payload: data })
         // putMedicinesData(data)
         //     .then((data) => { dispatch({ type: ActionTypes.UPDATE_MEDICINESDATA, payload: data.data }) })
         //     .catch((error) => {
