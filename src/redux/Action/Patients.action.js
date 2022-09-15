@@ -190,7 +190,7 @@ export const updatePatientsData = (data) => async (dispatch) => {
                                     // console.log(url);
                                     const patientsRef = doc(db, "patients", data.id);
 
-                                    await updateDoc(patientsRef, {
+                                    await updateDoc(patientsRef, { //4
                                         name: data.name,
                                         age: data.age,
                                         birthDate: data.birthDate,
@@ -199,7 +199,7 @@ export const updatePatientsData = (data) => async (dispatch) => {
                                         fileName: randomNum,
                                         patients_img: url
                                     });
-                                    dispatch({
+                                    dispatch({ //5
                                         type: ActionTypes.UPDATE_PATIENTSDATA, payload: {
                                             ...data, fileName: randomNum,
                                             patients_img: url
