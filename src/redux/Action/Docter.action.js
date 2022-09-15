@@ -169,11 +169,13 @@ export const deleteDocterData = (data) => async (dispatch) => {
 export const updateDocterData = (data) => async (dispatch) => {
   console.log(data);
 
-  const deldocterRef = ref(storage, 'docter/' + data.fileName);
-  let randomNum = Math.floor(Math.random() * 1000000).toString()
-  const instdocterRef = ref(storage, 'docter/' + randomNum);
+  const docterRef = doc(db, "docter", data.id);
 
   try {
+
+    const deldocterRef = ref(storage, 'docter/' + data.fileName);
+    let randomNum = Math.floor(Math.random() * 1000000).toString()
+    const instdocterRef = ref(storage, 'docter/' + randomNum);
 
     if (typeof data.profile_img === 'string') {
       console.log("No change image");
@@ -187,8 +189,6 @@ export const updateDocterData = (data) => async (dispatch) => {
               getDownloadURL(ref(storage, snapshot.ref)) //3
                 .then(async (url) => {
                   console.log(url);
-
-                  const docterRef = doc(db, "docter", data.id);
 
                   await updateDoc(docterRef, {  //4
                     firstname: data.firstname,
