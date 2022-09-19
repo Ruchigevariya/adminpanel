@@ -109,7 +109,9 @@ export default function Layout({children}) {
     {label:"Patients", to: "patients", icon: <PersonIcon/>},
     {label:"Docter", to: "docter", icon: <VaccinesIcon/>},
     {label:"Counter", to: "counter", icon: <HourglassBottomIcon/>},
-    {label:"Promise", to: "promise", icon: <DirectionsIcon/>}
+    {label:"Promise", to: "promise", icon: <DirectionsIcon/>},
+    {label:"UseMemo", to: "useMemo", icon: <DirectionsIcon/>},
+    {label:"UseCallback", to: "useCallback", icon: <DirectionsIcon/>},
   ];
   
   return (
