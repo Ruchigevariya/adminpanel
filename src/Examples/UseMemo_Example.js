@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from 'react';
-import Counter from '../container/Counter/Counter';
 
 function UseMemo_Example(props) {
     const [counter, setCounter] = useState(0);
@@ -13,6 +12,7 @@ function UseMemo_Example(props) {
         }else{
             return 1;
         }
+        
     }
 
     // without UseMemo
