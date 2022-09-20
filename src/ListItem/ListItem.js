@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 
 function ListItem({ getItem }) {
-    const [item , setItem] = useState(0)
+    const [item , setItem] = useState([])
     
     useEffect(() => {
-        setItem(getItem)
-    }, [5])
+        setItem(getItem(5))
+    }, [getItem])
 
     return (
         <div>
         {
-            inc.map((i) => {
-                
+            item.map((i) => {
+                return(
+                <p>{i}</p>
+                )
             })
         }
  
